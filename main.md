@@ -17,8 +17,26 @@ revealOptions:
 
 <!--s-->
 
+## What is 'demixing'? 
 
-## Principles of dimensionality reduction
+  - Goal of demixing: you want to find patterns of activity that best separate out experiment conditions
+  - 'Experiment conditions' includes stimulus and animal response
+  
+## Single-neuron versus population level demixing 
+
+ - The 'standard' approach of neuroscience: performing a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response can be thought of as demixing. 
+  - you find $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$
+  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consider 
+  - a better approach will be to consider the activity of all neurons together: do demixing at the population level 
+  
+  
+
+## Approaches to demixing 
+
+
+
+
+## Principles of dimensionality reduction for demixing 
 
 
 <!--s-->
@@ -26,8 +44,47 @@ revealOptions:
 
 ## demixed PCA
 
+### What is the objective of demixed PCA?
 
+demixed PCA tries to balance two goals: demixing and compression.
 
+![Demixed PCA example](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-2-bdf.png)
+
+<!--s-->
+
+### Example of applying demixed PCA : task
+
+Romo 1999: Monkeys compare frequency of two vibrations 
+
+![Romo 1999 task](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/romo-1999-fig-1ab.png)
+
+<!--s-->
+
+### Example of applying demixed PCA : input data
+
+ - Input data: we separate out our neural data based on stimulus condition: there are 12 possible stimulus conditions 
+ - The input data is also separated out according to 2 decisions 
+ - You then run dPCA through this data 
+ 
+ <!--s-->
+ 
+### Example of applying demixed PCA : output of dPCA 
+
+Same as PCA, dPCA gives you the top $n$ (user-specified) principal components. 
+But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
+
+ 1. Stimulus component: differences in stimulus best demixes this 'pattern' (dimension) of neural activity 
+ 2. Decision component: differences in decision best demixes
+ 3. Interaction component: variability due to interaction between stimulus and decision 
+ 4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
+ 
+![Component and variance](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-3-cd.png)
+
+<!--s-->
+
+### Example of applying demixed PCA: looking at how each PC vary with time 
+
+![Changes of projected neural activity over time](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-3-b.png)
 
 
 <!--s-->
