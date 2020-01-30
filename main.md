@@ -10,47 +10,142 @@ revealOptions:
 
 
 
-# demixed Principal Component Analysis
+# Demixing and summarising neural activity 
 
-[Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
+
 
 
 <!--s-->
 
-## What is 'demixing'? 
+## What needs to be demixed? 
 
-  - Goal of demixing: you want to find patterns of activity that best separate out experiment conditions
-  - 'Experiment conditions' includes stimulus and animal response
+we say that neurons in higher cortical areas display this because they are tuned to a variety of sensory and motor variables (i.e., it is not clear cut what they code for). Or [Raposo Kaufman Churchland (2014)]: individual neurons are modulated by multiple task parameters
+
+(maybe cite more papers on mixed selectivity)
+
+mixed selectivity at the level of: 
+
+ - individual neurons: neuron codes for both \(x\) and \(y\),  
+ - population
+  - part of population code for \(x\), part of population codes for \(y\)
+  - OR all individual neurons have mixed selectivity 
+
   
-## Single-neuron versus population level demixing 
+  
+## What is 'summarising'?
+
+ - we want to describe the dynamics of neural activity in lower dimensions 
+ - ie. explains variability of the data: both variability due to task parameters and intrinsic stochasticity (the neuron is irregular)
+  - you want resonstruct your data with lower dimensions 
+  
+
+## Approaches
+
+| Method | Demix? | Summarise | 
+|---------|---------|----------|
+| statistical test | Yes | No |
+| PCA, GPFA, ...              | No | Yes | 
+| LDA              | Yes | No |
+| dPCA (insert emoji)           | Yes | Yes |
+
+	
+[Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
+
+### Traditional statistical tests
 
  - The 'standard' approach of neuroscience: performing a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response can be thought of as demixing. 
   - you find $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$
-  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consider 
+  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consi
   - a better approach will be to consider the activity of all neurons together: do demixing at the population level 
-  
-  
-
-## Approaches to demixing 
 
 
+
+### PCA: quick introduction 
+
+Matrices transform vectors. 
+
+[include plot]
+
+--v--
+
+### PCA: projections 
+
+A non-square matrix performs a projection when it transform a vector to a space with different dimension.
+
+[include plot]
+
+ - number of columns: dimension of your input 
+ - number of rows: dimension of your output
+
+--v--
+
+### PCA: objective 
+
+PCA tries to find the projection matrix that minmise reconstruction error: 
+
+$$
+\vert \vert X - D^\intercal D X \vert\vert^2
+$$
+
+where: 
+
+ - $D$ is a fat short matrix (column > row)
+ - $DX$ is the projection to your PC space 
+ - $D^\intercal (DX)$ projects back (reconstruct) to the original space 
+ 
+--h--
+ 
+### dPCA 
+
+We start with our data \(X\) 
+
+ - dimensions: \(N \times KSQT\)
+    - \(K\) trials 
+	- \(S\) stimulus 
+	- \(Q\) decisions 
+	- \(T\) time bins 
+ 
+ We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
+ 
+ $$
+ x^i = ... 
+ $$
+ 
+### dPCA: taking the mean 
+
+[matrix / tensor plots]
+
+ 
+### dPCA: objective 
+
+We only want to reconstruct the contribution of each experiment variable individually, and we assume there's noise: 
+
+$$
+X = \sum_\phi X_\phi + X_\text{res}
+$$
+
+
+
+
+
+demixed PCA tries to balance two goals: demixing and summarising .
+
+![Demixed PCA example](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-2-bdf.png)
+
+
+ 
 
 
 ## Principles of dimensionality reduction for demixing 
 
 
+
+
 <!--s-->
 
 
-## demixed PCA
+## Results of dPCA
 
-### What is the objective of demixed PCA?
-
-demixed PCA tries to balance two goals: demixing and compression.
-
-![Demixed PCA example](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-2-bdf.png)
-
-<!--s-->
 
 ### Example of applying demixed PCA : task
 
@@ -62,7 +157,7 @@ Romo 1999: Monkeys compare frequency of two vibrations
 
 ### Example of applying demixed PCA : input data
 
- - Input data: we separate out our neural data based on stimulus condition: there are 12 possible stimulus conditions 
+ - Input data: we separate out our neural data based on stimulus condition: there are '6' possible stimulus conditions 
  - The input data is also separated out according to 2 decisions 
  - You then run dPCA through this data 
  
@@ -73,8 +168,8 @@ Romo 1999: Monkeys compare frequency of two vibrations
 Same as PCA, dPCA gives you the top $n$ (user-specified) principal components. 
 But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
 
- 1. Stimulus component: differences in stimulus best demixes this 'pattern' (dimension) of neural activity 
- 2. Decision component: differences in decision best demixes
+ 1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
+ 2. Decision component: differences in decision (and time) best demixes
  3. Interaction component: variability due to interaction between stimulus and decision 
  4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
  
