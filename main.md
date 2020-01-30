@@ -130,7 +130,7 @@ $$
 
 demixed PCA tries to balance two goals: demixing and summarising .
 
-![Demixed PCA example](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-2-bdf.png)
+![Demixed PCA example](./figures/dPCA/fig-2-bdf.png)
 
 
  
@@ -151,7 +151,7 @@ demixed PCA tries to balance two goals: demixing and summarising .
 
 Romo 1999: Monkeys compare frequency of two vibrations 
 
-![Romo 1999 task](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/romo-1999-fig-1ab.png)
+![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png)
 
 <!--s-->
 
@@ -173,19 +173,26 @@ But dPCA also gives you the experimental variable which the component explains m
  3. Interaction component: variability due to interaction between stimulus and decision 
  4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
  
-![Component and variance](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-3-cd.png)
+![Component and variance](./figures/dPCA/fig-3-cd.png)
 
 <!--s-->
 
 ### Example of applying demixed PCA: looking at how each PC vary with time 
 
-![Changes of projected neural activity over time](https://github.com/timothysit/dPCA-journal-club/figures/dPCA/fig-3-b.png)
+![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png)
 
 
 <!--s-->
 
 ### Code
 
+<!--s-->
+
+## Other demixing methods
+
+Non-linear extension of dPCA using kernels (kdPCA): [Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
+
+Unsupervised method that (surprisingly!) also demix (TCA): [Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
 
 <!--s-->
 
