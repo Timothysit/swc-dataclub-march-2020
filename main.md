@@ -1,23 +1,25 @@
 ---
 title: dPCA 
-separator: <!--s-->
+separator: <!--h-->
 verticalSeparator: <!--v-->
 theme: white
 revealOptions:
     transition: 'fade'
 ---
 
-
-
-
 # Demixing and summarising neural activity 
 
+<!--h-->
 
+## Introduction
 
+We have data (spike trains). Loads of it. 
 
-<!--s-->
+**What do we do???**
 
-## What needs to be demixed? 
+<!--v-->
+
+### What needs to be demixed? 
 
 we say that neurons in higher cortical areas display this because they are tuned to a variety of sensory and motor variables (i.e., it is not clear cut what they code for). Or [Raposo Kaufman Churchland (2014)]: individual neurons are modulated by multiple task parameters
 
@@ -30,26 +32,30 @@ mixed selectivity at the level of:
   - part of population code for \(x\), part of population codes for \(y\)
   - OR all individual neurons have mixed selectivity 
 
+<!--v-->
   
   
-## What is 'summarising'?
+### What is "summarising"?
 
  - we want to describe the dynamics of neural activity in lower dimensions 
  - ie. explains variability of the data: both variability due to task parameters and intrinsic stochasticity (the neuron is irregular)
   - you want resonstruct your data with lower dimensions 
   
+<!--h-->
+
 
 ## Approaches
 
 | Method | Demix? | Summarise | 
 |---------|---------|----------|
 | statistical test | Yes | No |
-| PCA, GPFA, ...              | No | Yes | 
-| LDA              | Yes | No |
-| dPCA (insert emoji)           | Yes | Yes |
+| PCA, GPFA, ... | No | Yes |
+| LDA | Yes | No |
+| dPCA (insert emoji) | Yes | Yes |
 
-	
-[Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
+We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
+
+<!--v-->
 
 ### Traditional statistical tests
 
@@ -58,7 +64,7 @@ mixed selectivity at the level of:
   - however, you limit the space of neural activity which you think provides information about the stimulus; you only consi
   - a better approach will be to consider the activity of all neurons together: do demixing at the population level 
 
-
+<!--v-->
 
 ### PCA: quick introduction 
 
@@ -66,7 +72,7 @@ Matrices transform vectors.
 
 [include plot]
 
---v--
+<!--v-->
 
 ### PCA: projections 
 
@@ -77,7 +83,7 @@ A non-square matrix performs a projection when it transform a vector to a space 
  - number of columns: dimension of your input 
  - number of rows: dimension of your output
 
---v--
+<!--v-->
 
 ### PCA: objective 
 
@@ -93,7 +99,7 @@ where:
  - $DX$ is the projection to your PC space 
  - $D^\intercal (DX)$ projects back (reconstruct) to the original space 
  
---h--
+<!--v-->
  
 ### dPCA 
 
@@ -107,14 +113,18 @@ We start with our data \(X\)
  
  We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
  
- $$
- x^i = ... 
- $$
+ \begin{align}
+ x^i_{tdsk} &= \bar{x} + \bar{x}_t + \bar{x}_s + \bar{x}_d + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{sd} + \bar{x}_{tsd} + \varepsilon_{tdsk} \\
+ &\stackrel{\tiny grouping}{=} \bar{x} + \bar{x}_t + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{tsd} + \varepsilon_{tdsk}
+ \end{align}
+ 
+<!--v-->
  
 ### dPCA: taking the mean 
 
 [matrix / tensor plots]
 
+<!--v--> 
  
 ### dPCA: objective 
 
@@ -124,27 +134,22 @@ $$
 X = \sum_\phi X_\phi + X_\text{res}
 $$
 
-
-
-
-
-demixed PCA tries to balance two goals: demixing and summarising .
+Demixed PCA tries to balance two goals: demixing and summarising .
 
 ![Demixed PCA example](./figures/dPCA/fig-2-bdf.png)
 
-
- 
-
+<!--h-->
 
 ## Principles of dimensionality reduction for demixing 
 
 
 
-
-<!--s-->
+<!--h-->
 
 
 ## Results of dPCA
+
+<!--v-->
 
 
 ### Example of applying demixed PCA : task
@@ -153,7 +158,7 @@ Romo 1999: Monkeys compare frequency of two vibrations
 
 ![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png)
 
-<!--s-->
+<!--v-->
 
 ### Example of applying demixed PCA : input data
 
@@ -161,7 +166,7 @@ Romo 1999: Monkeys compare frequency of two vibrations
  - The input data is also separated out according to 2 decisions 
  - You then run dPCA through this data 
  
- <!--s-->
+ <!--v-->
  
 ### Example of applying demixed PCA : output of dPCA 
 
@@ -175,26 +180,23 @@ But dPCA also gives you the experimental variable which the component explains m
  
 ![Component and variance](./figures/dPCA/fig-3-cd.png)
 
-<!--s-->
+<!--v-->
 
 ### Example of applying demixed PCA: looking at how each PC vary with time 
 
 ![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png)
 
 
-<!--s-->
-
-### Code
-
-<!--s-->
+<!--h-->
 
 ## Other demixing methods
 
 Non-linear extension of dPCA using kernels (kdPCA): [Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
 
 Unsupervised method that (surprisingly!) also demix (TCA): [Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
+- They claim it's a "natural generalization of PCA to higher-order tensors" (but see Joana's and Maneesh's _Joint Factorization_)
 
-<!--s-->
+<!--h-->
 
 ## Other dimensionality reduction methods 
 
@@ -204,16 +206,16 @@ Good reviews papers:
  
 
 
-<!--s-->
+<!--h-->
 
 ### PCA 
 
-<!--s-->
+<!--h-->
 
 
 ### Factor analysis
 
-<!--s-->
+<!--h-->
 
 
 
@@ -251,16 +253,16 @@ Some example implementations:
 
 
 
-<!--s-->
+<!--h-->
 
 
 ### Gaussian Process Factor Analysis 
 
-<!--s-->
+<!--h-->
 
 ### Independent Component Analysis 
 
-<!--s-->
+<!--h-->
 
 ### Latent Factor Analysis via Dynamical Systems (LFADS)
 
@@ -270,7 +272,7 @@ Some example implementations:
 
 
 
-<!--s-->
+<!--h-->
 
 
 ### Tier-list of dimensionality reduction methods
