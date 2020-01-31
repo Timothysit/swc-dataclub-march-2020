@@ -5,6 +5,7 @@ verticalSeparator: <!--v-->
 theme: white
 revealOptions:
     transition: 'fade'
+fontsize: 6
 ---
 
 # Demixing and summarising neural activity 
@@ -13,7 +14,11 @@ revealOptions:
 
 ## Introduction
 
+<font size=10>
+
 We have data (spike trains). Loads of it. 
+
+</font>
 
 **What do we do???**
 
@@ -21,9 +26,11 @@ We have data (spike trains). Loads of it.
 
 ### What needs to be demixed? 
 
-we say that neurons in higher cortical areas display this because they are tuned to a variety of sensory and motor variables (i.e., it is not clear cut what they code for). Or [Raposo Kaufman Churchland (2014)]: individual neurons are modulated by multiple task parameters
+<font size=6>
 
-(maybe cite more papers on mixed selectivity)
+Mixed selectivity: individual neurons are modulated by multiple task parameters (cite: Raposo Kaufman Churchland (2014))
+
+(maybe cite more papers on mixed selectivity; but only if footnote is possible)
 
 mixed selectivity at the level of: 
 
@@ -31,6 +38,8 @@ mixed selectivity at the level of:
  - population
   - part of population code for $x$, part of population codes for $y$
   - OR all individual neurons have mixed selectivity 
+  
+</font> 
 
 <!--v-->
   
@@ -59,10 +68,25 @@ We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural
 
 ### Traditional statistical tests
 
+
+<font size=6>
+
+
  - The 'standard' approach of neuroscience: performing a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response can be thought of as demixing. 
   - you find $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$
-  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consi
+  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consider single neuron coding of variables
   - a better approach will be to consider the activity of all neurons together: do demixing at the population level 
+  
+</font>
+
+<!--v-->
+
+### PCA: Quick introduction
+
+We want to summarise high dimensional neural activity in lower dimensions to make it easier to visualise / interpret the data. 
+
+http://setosa.io/ev/principal-component-analysis/
+
 
 <!--v-->
 
@@ -70,7 +94,8 @@ We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural
 
 Matrices transform vectors. 
 
-[include plot]
+<iframe frameborder="0" width="100%" height="500pt" src="https://ncase.me/matrix/"></iframe>
+
 
 <!--v-->
 
@@ -103,20 +128,26 @@ where:
  
 ### dPCA 
 
+<font size=6>
+
 We start with our data $X$ 
 
  - dimensions: $N \times KSQT$
-    - $K$ trials 
-	- $S$ stimulus 
-	- $Q$ decisions 
-	- $T$ time bins 
+  - $K$ trials 
+  - $S$ stimulus 
+  - $Q$ decisions 
+  - $T$ time bins 
  
  We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
  
+ $$
  \begin{align}
  x^i_{tdsk} &= \bar{x} + \bar{x}_t + \bar{x}_s + \bar{x}_d + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{sd} + \bar{x}_{tsd} + \varepsilon_{tdsk} \\
  &\stackrel{\tiny grouping}{=} \bar{x} + \bar{x}_t + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{tsd} + \varepsilon_{tdsk}
  \end{align}
+ $$
+ 
+ </font>
  
 <!--v-->
  
@@ -134,17 +165,17 @@ $$
 X = \sum_\phi X_\phi + X_\text{res}
 $$
 
+[include equation about decoder encoder matrices]
+
+<!--v-->
+
 Demixed PCA tries to balance two goals: demixing and summarising .
 
 ![Demixed PCA example](./figures/dPCA/fig-2-bdf.png)
 
 <!--h-->
 
-## Principles of dimensionality reduction for demixing 
 
-
-
-<!--h-->
 
 
 ## Results of dPCA
@@ -170,15 +201,23 @@ Romo 1999: Monkeys compare frequency of two vibrations
  
 ### Example of applying demixed PCA : output of dPCA 
 
-Same as PCA, dPCA gives you the top $n$ (user-specified) principal components. 
+<font size=5>
+
+Same as PCA, dPCA gives you the top $n$ principal components. 
 But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
+
+ 
+</font>
+ 
+![Component and variance](./figures/dPCA/fig-3-cd.png)
+
+<!--v-->
 
  1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
  2. Decision component: differences in decision (and time) best demixes
  3. Interaction component: variability due to interaction between stimulus and decision 
  4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
- 
-![Component and variance](./figures/dPCA/fig-3-cd.png)
+
 
 <!--v-->
 
@@ -186,42 +225,39 @@ But dPCA also gives you the experimental variable which the component explains m
 
 ![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png)
 
+<!--h--> 
 
-<!--h-->
+### Caveats of dPCA
 
-## Other demixing methods
+<font size=6>
 
-Non-linear extension of dPCA using kernels (kdPCA): [Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
+It does not work if: 
 
-Unsupervised method that (surprisingly!) also demix (TCA): [Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
-- They claim it's a "natural generalization of PCA to higher-order tensors" (but see Joana's and Maneesh's _Joint Factorization_)
-
-<!--h-->
-
-## Other dimensionality reduction methods 
-
-Good reviews papers:
-
- - [Cunningham and Byron 2014: Dimensionality reduction for large-scale neural recordings](https://www.nature.com/articles/nn.3776)
+ - you don't have all combinations of task parameters 
+ - continuous task parameters 
+ - you need a lot more neurons than your task parameters 
  
-
-
-<!--h-->
-
-### PCA 
-
-<!--h-->
-
-
-### Factor analysis
+ 
+ There are workarounds for: 
+ 
+  - your trials are unbalanced (re-balancing procedure)
+  - different trial lengths (time warping)
+</font> 
 
 <!--h-->
 
+## Other demixing / summarising methods
+
+<!--v-->
 
 
-### t-SNE
+### Non-linear extension of dPCA using kernels (kdPCA)
+[Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
 
-<iframe frameborder="0" width="100%" height="500pt" src="https://distill.pub/2016/misread-tsne/"></iframe>
+#### Why do we need nonlinear methods? 
+
+[inlcude fig2AB Latimer2018nonlinear]
+
 
 <!--v-->
 
@@ -229,9 +265,8 @@ Good reviews papers:
 
 Pros
 
- - list 
- - of 
- - pros
+ - it's non-linear: more flexibility 
+ - (uses kernels)
 
 </div>
 
@@ -239,48 +274,100 @@ Pros
 
 Cons 
 
- - list 
- - of 
- - cons
+ - extracted components are maybe less interpretable  
+ - more parameter tuning (and so need more robust cross-validation)
+
+</div>
+
+
+
+<!--v-->
+
+### Tensor Component Analysis (TCA)
+[Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
+
+<!--v-->
+
+
+<div id='left'>
+
+Pros
+
+ - They claim it's a "natural generalization of PCA to higher-order tensors" 
+ - unsupservised method 
+ - can handle continuous experimental parameters
+
+</div>
+
+<div id ='right'>
+
+Cons 
+
+ - (Lucas thinkgs they are lying somewhere)
+ - linear 
+ - Joana and Maneesh has a different tensor method 
+ 
 
 </div>
 
 <!--v-->
 
-Some example implementations:
-
- - [Dimitriadis 2018: t-SNE visualization of large scale neural recordings](https://www.mitpressjournals.org/doi/full/10.1162/neco_a_01097)
-
-
-
-<!--h-->
-
-
-### Gaussian Process Factor Analysis 
-
-<!--h-->
-
-### Independent Component Analysis 
-
-<!--h-->
-
 ### Latent Factor Analysis via Dynamical Systems (LFADS)
-
-
 
 [Pandarinath 2018: Inferring single-trial neural population dynamics using sequential auto-encoders](https://www.nature.com/articles/s41592-018-0109-9)
 
 
 
+
+
+<!--v-->
+
+<div id='left'>
+
+Pros
+
+ - dynamical model: you enforce temporal correlation (you don't assume time points are independent)
+ - (it is more true)
+
+
+</div>
+
+<div id ='right'>
+
+Cons 
+
+ - does not demix; only summarise 
+ 
+ 
+</div>
+
+
 <!--h-->
 
 
+### Other methods we have no time to talk about 
+
+ - Gaussian Process Factor Analysis 
+ - Independent Component Analysis
+ - tSNE
+ 
+ 
+ Good reviews papers:
+
+ - [Cunningham and Byron 2014: Dimensionality reduction for large-scale neural recordings](https://www.nature.com/articles/nn.3776)
+ 
+<!--v-->
+
+#### tSNE 
+
+<iframe frameborder="0" width="100%" height="500pt" src="https://distill.pub/2016/misread-tsne/"></iframe>
+
+
+<!--h-->
+
 ### Tier-list of dimensionality reduction methods
 
-
-
-
-
+[effort vs. expected reward plot]
 
 
 
