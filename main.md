@@ -27,9 +27,9 @@ we say that neurons in higher cortical areas display this because they are tuned
 
 mixed selectivity at the level of: 
 
- - individual neurons: neuron codes for both \(x\) and \(y\),  
+ - individual neurons: neuron codes for both $x$ and $y$,  
  - population
-  - part of population code for \(x\), part of population codes for \(y\)
+  - part of population code for $x$, part of population codes for $y$
   - OR all individual neurons have mixed selectivity 
 
 <!--v-->
@@ -46,12 +46,12 @@ mixed selectivity at the level of:
 
 ## Approaches
 
-| Method | Demix? | Summarise | 
-|---------|---------|----------|
-| statistical test | Yes | No |
-| PCA, GPFA, ... | No | Yes |
-| LDA | Yes | No |
-| dPCA (insert emoji) | Yes | Yes |
+| Method | Demix? | Summarise? | Cool? |
+|---------|---------|----------|--|
+| statistical test | Yes | No | No.. |
+| LDA | Yes | No | Meh |
+| PCA, GPFA, ... | No | Yes | I guess |
+| dPCA | Yes | Yes | <p>&#129321;</p> |
 
 We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
 
@@ -103,13 +103,13 @@ where:
  
 ### dPCA 
 
-We start with our data \(X\) 
+We start with our data $X$ 
 
- - dimensions: \(N \times KSQT\)
-    - \(K\) trials 
-	- \(S\) stimulus 
-	- \(Q\) decisions 
-	- \(T\) time bins 
+ - dimensions: $N \times KSQT$
+    - $K$ trials 
+	- $S$ stimulus 
+	- $Q$ decisions 
+	- $T$ time bins 
  
  We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
  
