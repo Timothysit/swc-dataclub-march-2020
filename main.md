@@ -90,7 +90,7 @@ http://setosa.io/ev/principal-component-analysis/
 
 <!--v-->
 
-### PCA: quick introduction 
+### PCA: Quick introduction 
 
 Matrices transform vectors. 
 
@@ -101,12 +101,25 @@ Matrices transform vectors.
 
 ### PCA: projections 
 
-A non-square matrix performs a projection when it transform a vector to a space with different dimension.
+<div id='left'> 
 
-[include plot]
+A non-square matrix performs a projection when it transform a vector to a space with different dimension.
 
  - number of columns: dimension of your input 
  - number of rows: dimension of your output
+ 
+ </div>
+ 
+<div id='right'> 
+
+Example: transform vector by a  1 by 2 matrix: $$A\vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix}\begin{bmatrix} v_1 \\\\ v_2\end{bmatrix}$$
+
+![Projection matrix example](./figures/linear_projection_example.png) <!-- .element height="70%" width="70%"; -->
+
+
+</div>
+
+
 
 <!--v-->
 
@@ -125,6 +138,15 @@ where:
  - $D^\intercal (DX)$ projects back (reconstruct) to the original space 
  
 <!--v-->
+
+### PCA: demo 
+
+
+<iframe frameborder="0" width="100%" height="500pt" src="http://setosa.io/ev/principal-component-analysis/"></iframe>
+
+ 
+<!--v-->
+
  
 ### dPCA 
 
@@ -140,20 +162,37 @@ We start with our data $X$
  
  We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
  
- $$
- \begin{align}
- x^i_{tdsk} &= \bar{x} + \bar{x}_t + \bar{x}_s + \bar{x}_d + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{sd} + \bar{x}_{tsd} + \varepsilon_{tdsk} \\
- &\stackrel{\tiny grouping}{=} \bar{x} + \bar{x}_t + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{tsd} + \varepsilon_{tdsk}
- \end{align}
- $$
+ (TODO: Lucas fix)
+ 
+$$ \begin{align} x^i_{tdsk} &= \bar{x} + \bar{x}_t + \bar{x}_s + \bar{x}_d + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{sd} + \bar{x}_{tsd} + \varepsilon_{tdsk} \\  &\stackrel{\tiny grouping}{=} \bar{x} + \bar{x}_t + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{tsd} + \varepsilon_{tdsk} \end{align}  $$
  
  </font>
  
 <!--v-->
+
+### dPCA: input data format
+
+<div id='left'>
+
+![Condition-decision matrix](./notebook/condition_decision_matrix.png) <!-- .element height="60%" width="90%"; -->
+
+</div>
+
+<div id='right'>
+
+![Data matrix input for dPCA](./notebook/data_matrix.png) <!-- .element height="60%" width="90%"; -->
+
+</div>
+
+<font size=5>
+where you have $N$ neurons, $K$ trials, $S$ stimulus, $D$ decisions and $T$ time points
+</font>
+
+<!--v-->
  
 ### dPCA: taking the mean 
 
-[matrix / tensor plots]
+![Taking the mean across a dimension dPCA matrix](./notebook/matrices_tiled_in_3D.png) <!-- .element height="70%" width="70%"; -->
 
 <!--v--> 
  
@@ -165,13 +204,31 @@ $$
 X = \sum_\phi X_\phi + X_\text{res}
 $$
 
-[include equation about decoder encoder matrices]
+<!--v-->
+
+### dPCA: objective 
+
+This can be done by having a separate decoder transformation matrix (compared to PCA: using the same matrix to compress and map back to the original space):
+
+$$
+L_\text{dPCA} = \vert\vert \mathbf{X}_s - \mathbf{F}\mathbf{D}\mathbf{X} \vert\vert^2
+$$
+
+<font size=5>
+
+where: 
+
+ - $\mathbf{D}$ is used to compress the data into a space with fewer dimensions 
+ - $\mathbf{F}$ is used to map the data to the mean activity of interest (instead of the original data, as in PCA) 
+
+</font>
+
 
 <!--v-->
 
 Demixed PCA tries to balance two goals: demixing and summarising .
 
-![Demixed PCA example](./figures/dPCA/fig-2-bdf.png)
+![Demixed PCA example](./figures/dPCA/fig-2-bdf.png) 
 
 <!--h-->
 
@@ -187,7 +244,7 @@ Demixed PCA tries to balance two goals: demixing and summarising .
 
 Romo 1999: Monkeys compare frequency of two vibrations 
 
-![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png)
+![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png) <!-- .element height="70%" width="40%"; -->
 
 <!--v-->
 
@@ -206,24 +263,33 @@ Romo 1999: Monkeys compare frequency of two vibrations
 Same as PCA, dPCA gives you the top $n$ principal components. 
 But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
 
- 
 </font>
+
+<div id='left'>
  
-![Component and variance](./figures/dPCA/fig-3-cd.png)
+![Component and variance](./figures/dPCA/fig-3-cd.png) <!-- .element height="70%" width="70%"; -->
 
-<!--v-->
+</div>
 
- 1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
- 2. Decision component: differences in decision (and time) best demixes
- 3. Interaction component: variability due to interaction between stimulus and decision 
- 4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
+<div id='right'>
+
+<font size=4>
+
+1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
+2. Decision component: differences in decision (and time) best demixes
+3. Interaction component: variability due to interaction between stimulus and decision 
+4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
+ 
+ </font>
+ 
+ </div> 
 
 
 <!--v-->
 
 ### Example of applying demixed PCA: looking at how each PC vary with time 
 
-![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png)
+![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png) <!-- .element height="50%" width="50%"; -->
 
 <!--h--> 
 
@@ -254,9 +320,13 @@ It does not work if:
 ### Non-linear extension of dPCA using kernels (kdPCA)
 [Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
 
+<!--v-->
+
 #### Why do we need nonlinear methods? 
 
-[inlcude fig2AB Latimer2018nonlinear]
+
+![Latimer kernel PCA demo](./figures/dPCA/latimer2018-fig-2ab.png) <!-- .element height="70%" width="60%"; -->
+
 
 
 <!--v-->
@@ -303,7 +373,7 @@ Pros
 
 Cons 
 
- - (Lucas thinkgs they are lying somewhere)
+ - (Lucas thinks they are lying somewhere)
  - linear 
  - Joana and Maneesh has a different tensor method 
  
@@ -365,9 +435,10 @@ Cons
 
 <!--h-->
 
-### Tier-list of dimensionality reduction methods
+### Comparing dimensionality reduction methods
 
-[effort vs. expected reward plot]
+
+![Dim reduction methods comparison](./notebook/dim_reduction_methods_prop.png) <!-- .element height="70%" width="60%"; -->
 
 
 
