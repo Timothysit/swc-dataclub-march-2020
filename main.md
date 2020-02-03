@@ -150,23 +150,29 @@ where:
  
 ### dPCA 
 
-<font size=6>
+<font size=5>
 
-We start with our data $X$ 
+We start with our data $X$  (dimensions: $N \times KSQT$)
+- $K$ trials 
+- $S$ stimulus 
+- $Q$ decisions 
+- $T$ time bins 
+ 
+We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
 
- - dimensions: $N \times KSQT$
-  - $K$ trials 
-  - $S$ stimulus 
-  - $Q$ decisions 
-  - $T$ time bins 
+</font>
  
- We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
+<font size=4>
+
+`$$ 
+x^i_{tdsk} = \overline{x} + \overline{x}_t + \overline{x}_s + \overline{x}_d + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{sd} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
+$$`
+
+`$$  
+\stackrel{\tiny grouping}{=} \overline{x} + \overline{x}_t + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
+$$`
  
- (TODO: Lucas fix)
- 
-$$ \begin{align} x^i_{tdsk} &= \bar{x} + \bar{x}_t + \bar{x}_s + \bar{x}_d + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{sd} + \bar{x}_{tsd} + \varepsilon_{tdsk} \\  &\stackrel{\tiny grouping}{=} \bar{x} + \bar{x}_t + \bar{x}_{ts} + \bar{x}_{td} + \bar{x}_{tsd} + \varepsilon_{tdsk} \end{align}  $$
- 
- </font>
+</font>
  
 <!--v-->
 
