@@ -365,6 +365,24 @@ Cons
 <!--v-->
 
 
+### What is tensor component analysis?
+
+![Latimer kernel PCA demo](./figures/other-dim-reduce-methods/TCA-paper-figure-1.png) <!-- .element height="70%" width="60%"; -->
+
+<font size=5>
+
+ - a matrix is a second order tensor, and PCA is a dimensionality reduction on second order tensors 
+ - TCA is a dimensionality reduction method on third or higher order tensors 
+ - previous approaches to dimensionality reduction focus on two dimensions: neuron and time 
+ - TCA is a way to add more dimensions to reduce: eg. the trial dimension 
+ 
+ 
+ </font>
+
+
+<!--v-->
+
+
 <div id='left'>
 
 Pros
