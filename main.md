@@ -385,10 +385,10 @@ Cons
 
 <font size=5>
 
-- a matrix is a second order tensor, and PCA is a dimensionality reduction on second order tensors 
-- TCA is a dimensionality reduction method on third or higher order tensors 
-- previous approaches to dimensionality reduction focus on two dimensions: neuron and time
-- TCA is a way to add more dimensions to reduce: eg. the trial dimension 
+- a matrix is a second order tensor, and (d)PCA is a dimensionality reduction on second order tensors 
+- TCA is a dimensionality reduction method on third order tensors 
+- previous approaches to dimensionality reduction focus on two modes (tensor jargon for "axes"): neuron and time
+- TCA is a way to add more modes to reduce dimensionality: eg. trials
 
 </font>
 
@@ -414,9 +414,9 @@ Cons
 
  - (Lucas thinks they are lying somewhere)
  - linear 
- - Joana and Maneesh has a different tensor method 
+ - not dynamical
+ - Joana and Maneesh have a different tensor method 
  
-
 </div>
 
 <!--v-->
@@ -424,9 +424,6 @@ Cons
 ### Latent Factor Analysis via Dynamical Systems (LFADS)
 
 [Pandarinath 2018: Inferring single-trial neural population dynamics using sequential auto-encoders](https://www.nature.com/articles/s41592-018-0109-9)
-
-
-
 
 
 <!--v-->
