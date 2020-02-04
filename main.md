@@ -8,9 +8,12 @@ revealOptions:
 fontsize: 6
 ---
 
+
 # Demixing and summarising neural activity 
 
 <!--h-->
+
+
 
 ## Introduction
 
@@ -24,38 +27,36 @@ We have data (spike trains). Loads of it.
 
 <!--v-->
 
-### What needs to be demixed? 
+### What is "demixing"? 
 
 <font size=6>
 
-Mixed selectivity: individual neurons are modulated by multiple task parameters (cite: Raposo Kaufman Churchland (2014))
+_mixed selectivity_: individual neurons are modulated by multiple task parameters (Raposo Kaufman Churchland (2014))
 
-(maybe cite more papers on mixed selectivity; but only if footnote is possible)
-
-mixed selectivity at the level of: 
+we want to _demix_ at the level of: 
 
  - individual neurons: neuron codes for both $x$ and $y$,  
- - population
-  - part of population code for $x$, part of population codes for $y$
-  - OR all individual neurons have mixed selectivity 
+ - population:
+  - part of population codes for $x$, another part codes for $y$
+  - OR all individual neurons have mixed selectivity (a.k.a _mess_)
   
-</font> 
+</font>   
 
 <!--v-->
-  
-  
+
 ### What is "summarising"?
 
  - we want to describe the dynamics of neural activity in lower dimensions 
  - ie. explains variability of the data: both variability due to task parameters and intrinsic stochasticity (the neuron is irregular)
-  - you want resonstruct your data with lower dimensions 
-  
+ - you want to reconstruct your data using that lower-dim representation (_interpretability_)
+
 <!--h-->
+
 
 
 ## Approaches
 
-| Method | Demix? | Summarise? | Cool? |
+| Method | Demixes? | Summarises? | Cool? |
 |---------|---------|----------|--|
 | statistical test | Yes | No | No.. |
 | LDA | Yes | No | Meh |
@@ -68,14 +69,14 @@ We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural
 
 ### Traditional statistical tests
 
+<font size=5>
 
-<font size=6>
-
-
- - The 'standard' approach of neuroscience: performing a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response can be thought of as demixing. 
-  - you find $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$
-  - however, you limit the space of neural activity which you think provides information about the stimulus; you only consider single neuron coding of variables
-  - a better approach will be to consider the activity of all neurons together: do demixing at the population level 
+- The 'standard' approach of neuroscience: perform a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response. This can be thought of as demixing. 
+  - you find (threshold) $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$ so that at each time point we 'know' the fraction of neurons responding to one variable or another
+  - but that's single variable coding, we lose mixed selectivity, we lose saying what contribution in the neuron response comes from each variable
+  - and we also don't account for population coding (different neurons coding same variable but in different ways)
+  
+a better approach will be to consider the activity of all neurons _together_
   
 </font>
 
@@ -87,7 +88,6 @@ We want to summarise high dimensional neural activity in lower dimensions to mak
 
 http://setosa.io/ev/principal-component-analysis/
 
-
 <!--v-->
 
 ### PCA: Quick introduction 
@@ -96,30 +96,27 @@ Matrices transform vectors.
 
 <iframe frameborder="0" width="100%" height="500pt" src="https://ncase.me/matrix/"></iframe>
 
-
 <!--v-->
 
 ### PCA: projections 
 
 <div id='left'> 
 
-A non-square matrix performs a projection when it transform a vector to a space with different dimension.
+A **non-square** matrix performs a projection when it transform a vector to a space with different dimension.
 
- - number of columns: dimension of your input 
- - number of rows: dimension of your output
+ - \# columns: dimension of your _input_ 
+ - \# rows: dimension of your _output_
  
  </div>
  
 <div id='right'> 
 
-Example: transform vector by a  1 by 2 matrix: $$A\vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix}\begin{bmatrix} v_1 \\\\ v_2\end{bmatrix}$$
+_Example_: transform vector by a  $1 \times 2$ matrix: $$A\vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix}\begin{bmatrix} v_1 \\\\ v_2\end{bmatrix}$$
 
 ![Projection matrix example](./figures/linear_projection_example.png) <!-- .element height="70%" width="70%"; -->
 
 
 </div>
-
-
 
 <!--v-->
 
@@ -128,7 +125,7 @@ Example: transform vector by a  1 by 2 matrix: $$A\vec{v} = \begin{bmatrix} 1 & 
 PCA tries to find the projection matrix that minmise reconstruction error: 
 
 $$
-\vert \vert X - D^\intercal D X \vert\vert^2
+\mathcal{L}_\text{PCA} = \| \| X - D^\intercal D X \|\|^2
 $$
 
 where: 
@@ -141,28 +138,33 @@ where:
 
 ### PCA: demo 
 
-
 <iframe frameborder="0" width="100%" height="500pt" src="http://setosa.io/ev/principal-component-analysis/"></iframe>
 
- 
 <!--v-->
 
- 
 ### dPCA 
 
 <font size=5>
 
-We start with our data $X$  (dimensions: $N \times KSQT$)
+We start with our data $X$. It has dimensions $N \times KSQT$
+
+<div id='left'> 
+
 - $K$ trials 
 - $S$ stimulus 
+</div>
+ 
+<div id='right'> 
+
 - $Q$ decisions 
 - $T$ time bins 
+</div>
  
 We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
 
 </font>
  
-<font size=4>
+<font size=5>
 
 `$$ 
 x^i_{tdsk} = \overline{x} + \overline{x}_t + \overline{x}_s + \overline{x}_d + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{sd} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
@@ -204,31 +206,38 @@ where you have $N$ neurons, $K$ trials, $S$ stimulus, $D$ decisions and $T$ time
  
 ### dPCA: objective 
 
-We only want to reconstruct the contribution of each experiment variable individually, and we assume there's noise: 
+<font size=6>
+We only want to reconstruct the contribution of each experimental variable individually.
+
+Remember: the $X_\phi$ matrices are those averages, plus some residual contribution/noise
+</font>
 
 $$
-X = \sum_\phi X_\phi + X_\text{res}
+X = \sum_{\phi = ( t, ts, td, tsd )} X_\phi + X_\text{res}
 $$
 
 <!--v-->
 
 ### dPCA: objective 
 
-This can be done by having a separate decoder transformation matrix (compared to PCA: using the same matrix to compress and map back to the original space):
+<font size=6>
+
+This can be done by having a separate decoder transformation matrix (PCA: same matrix to compress and map back to the original space):
+
+</font>
 
 $$
-L_\text{dPCA} = \vert\vert \mathbf{X}_s - \mathbf{F}\mathbf{D}\mathbf{X} \vert\vert^2
+\mathcal{L}_\text{dPCA}^\phi = \vert\vert \mathbf{X}_\phi - \mathbf{F}_\phi\mathbf{D}_\phi\mathbf{X} \vert\vert^2
 $$
 
 <font size=5>
 
 where: 
 
- - $\mathbf{D}$ is used to compress the data into a space with fewer dimensions 
- - $\mathbf{F}$ is used to map the data to the mean activity of interest (instead of the original data, as in PCA) 
+ - $\mathbf{D}_\phi$ is used to compress the data into a space with fewer dimensions 
+ - $\mathbf{F}_\phi$ is used to map the data to the mean activity of interest (PCA: original data) 
 
 </font>
-
 
 <!--v-->
 
@@ -240,17 +249,15 @@ Demixed PCA tries to balance two goals: demixing and summarising .
 
 
 
-
 ## Results of dPCA
 
 <!--v-->
-
 
 ### Example of applying demixed PCA : task
 
 Romo 1999: Monkeys compare frequency of two vibrations 
 
-![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png) <!-- .element height="70%" width="40%"; -->
+![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png) <!-- .element height="70%" width="40%"; style="margin:auto;display:block"-->
 
 <!--v-->
 
@@ -273,7 +280,7 @@ But dPCA also gives you the experimental variable which the component explains m
 
 <div id='left'>
  
-![Component and variance](./figures/dPCA/fig-3-cd.png) <!-- .element height="70%" width="70%"; -->
+![Component and variance](./figures/dPCA/fig-3-cd.png) <!-- .element height="70%" width="70%";  -->
 
 </div>
 
@@ -284,9 +291,9 @@ But dPCA also gives you the experimental variable which the component explains m
 1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
 2. Decision component: differences in decision (and time) best demixes
 3. Interaction component: variability due to interaction between stimulus and decision 
-4. Condition-independent: does not depend on particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$
+4. Condition-independent: does not depend on  particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$)
  
- </font>
+</font>
  
  </div> 
 
@@ -295,7 +302,7 @@ But dPCA also gives you the experimental variable which the component explains m
 
 ### Example of applying demixed PCA: looking at how each PC vary with time 
 
-![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png) <!-- .element height="50%" width="50%"; -->
+![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png) <!-- .element height="50%" width="50%"; style="margin:auto;display:block" -->
 
 <!--h--> 
 
@@ -331,7 +338,7 @@ It does not work if:
 #### Why do we need nonlinear methods? 
 
 
-![Latimer kernel PCA demo](./figures/dPCA/latimer2018-fig-2ab.png) <!-- .element height="70%" width="60%"; -->
+![Latimer kernel PCA demo](./figures/dPCA/latimer2018-fig-2ab.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
 
 
 
@@ -367,17 +374,25 @@ Cons
 
 ### What is tensor component analysis?
 
-![Latimer kernel PCA demo](./figures/other-dim-reduce-methods/TCA-paper-figure-1.png) <!-- .element height="70%" width="60%"; -->
+<div id='left'>
+
+![Latimer kernel PCA demo](./figures/other-dim-reduce-methods/TCA-paper-figure-1.png) <!-- .element style="margin:auto;display:block" -->
+
+</div>
+
+
+<div id='right'>
 
 <font size=5>
 
- - a matrix is a second order tensor, and PCA is a dimensionality reduction on second order tensors 
- - TCA is a dimensionality reduction method on third or higher order tensors 
- - previous approaches to dimensionality reduction focus on two dimensions: neuron and time 
- - TCA is a way to add more dimensions to reduce: eg. the trial dimension 
- 
- 
- </font>
+- a matrix is a second order tensor, and PCA is a dimensionality reduction on second order tensors 
+- TCA is a dimensionality reduction method on third or higher order tensors 
+- previous approaches to dimensionality reduction focus on two dimensions: neuron and time
+- TCA is a way to add more dimensions to reduce: eg. the trial dimension 
+
+</font>
+
+</div>
 
 
 <!--v-->
@@ -431,6 +446,7 @@ Pros
 Cons 
 
  - does not demix; only summarise 
+ - do we like RNNs?
  
  
 </div>
@@ -462,7 +478,7 @@ Cons
 ### Comparing dimensionality reduction methods
 
 
-![Dim reduction methods comparison](./notebook/dim_reduction_methods_prop.png) <!-- .element height="70%" width="60%"; -->
+![Dim reduction methods comparison](./notebook/dim_reduction_methods_prop.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
 
 
 
@@ -490,6 +506,11 @@ Cons
 	line-height: 1.5; 
 }
 
+p { text-align: left; }
+
+#myfigure{
+	text-align: center;
+}
 </style>
 
 
