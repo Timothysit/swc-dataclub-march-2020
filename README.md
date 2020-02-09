@@ -1,6 +1,11 @@
-# dPCA-journal-club
+# Multisensory integration PhD project presentations
 
-Journal Club on Kobak 2016: Demixed principal component analysis of neural population data
+This repo contains the presentations made during my PhD, mostly concerning multisensory integration in the mouse cortex.
 
-Presented on 2020-02-04, written by Lucas Simoes and Timothy Sit.
+The latest presentation will be in the `index.html` file, and old presentations will be stored in `archive`.
+
+Upcoming presentations: 
+
+ - 2020 Feb 24: Cortexlab DataClub 
+ - 
 

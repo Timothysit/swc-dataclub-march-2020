@@ -1,182 +1,97 @@
 ---
-title: dPCA 
+title: Multisensory sensory integration in the mouse cortex
 separator: <!--h-->
 verticalSeparator: <!--v-->
 theme: white
 revealOptions:
     transition: 'fade'
-fontsize: 6
 ---
 
 
-# Demixing and summarising neural activity 
+# Multisensory sensory integration in the mouse cortex
+
+## AKA what I plan to do during my PhD
+
+### 2020 February 24 
 
 <!--h-->
 
 
 
-## Introduction
-
-<font size=10>
-
-We have data (spike trains). Loads of it. 
-
-</font>
-
-**What do we do???**
-
-<!--v-->
-
-### What is "demixing"? 
-
-<font size=6>
-
-_mixed selectivity_: individual neurons are modulated by multiple task parameters (Raposo Kaufman Churchland (2014))
-
-we want to _demix_ at the level of: 
-
- - individual neurons: neuron codes for both $x$ and $y$,  
- - population:
-  - part of population codes for $x$, another part codes for $y$
-  - OR all individual neurons have mixed selectivity (a.k.a _mess_)
-  
-</font>   
-
-<!--v-->
-
-### What is "summarising"?
-
- - we want to describe the dynamics of neural activity in lower dimensions 
- - ie. explains variability of the data: both variability due to task parameters and intrinsic stochasticity (the neuron is irregular)
- - you want to reconstruct your data using that lower-dim representation (_interpretability_)
+## What is multisensory integration?
 
 <!--h-->
 
 
+## Where does multisensory integration occur? 
 
-## Approaches
+<!--h-->
 
-| Method | Demixes? | Summarises? | Cool? |
-|---------|---------|----------|--|
-| statistical test | Yes | No | No.. |
-| LDA | Yes | No | Meh |
-| PCA, GPFA, ... | No | Yes | I guess |
-| dPCA | Yes | Yes | <p>&#129321;</p> |
+ - include graphic here showing 
+    - ease of recording (x-axis) 
+	- probability of getting multisensory response 
+	- expected number of neuorns that can be recorded from simultaneously (either 2P or neuropixels)
 
-We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
+## Is multisensory activity linear or linear? 
 
-<!--v-->
+<!--h-->
 
-### Traditional statistical tests
 
-<font size=5>
+## What determines whether multisensory activity will occur/develop? 
 
-- The 'standard' approach of neuroscience: perform a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response. This can be thought of as demixing. 
-  - you find (threshold) $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$ so that at each time point we 'know' the fraction of neurons responding to one variable or another
-  - but that's single variable coding, we lose mixed selectivity, we lose saying what contribution in the neuron response comes from each variable
-  - and we also don't account for population coding (different neurons coding same variable but in different ways)
-  
-a better approach will be to consider the activity of all neurons _together_
-  
-</font>
+ - temporal coherence 
+ - is supervised learning required for multisesnory integration in the cortex? 
 
-<!--v-->
 
-### PCA: Quick introduction
+<!--h-->
 
-We want to summarise high dimensional neural activity in lower dimensions to make it easier to visualise / interpret the data. 
 
-http://setosa.io/ev/principal-component-analysis/
+## Filmworld: passive presentation of video with natural scene statistics
 
-<!--v-->
-
-### PCA: Quick introduction 
-
-Matrices transform vectors. 
-
-<iframe frameborder="0" width="100%" height="500pt" src="https://ncase.me/matrix/"></iframe>
-
-<!--v-->
-
-### PCA: projections 
-
-<div id='left'> 
-
-A **non-square** matrix performs a projection when it transform a vector to a space with different dimension.
-
- - \# columns: dimension of your _input_ 
- - \# rows: dimension of your _output_
+ - what is natural scene statistics and why is it important? 
+    - high dimensional
+	- (ecologically relevant?)
+ - include figure of the design of filmworld 
  
- </div>
- 
-<div id='right'> 
+## Filmworld for addresssing the linearity question 
 
-_Example_: transform vector by a  $1 \times 2$ matrix: $$A\vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix}\begin{bmatrix} v_1 \\\\ v_2\end{bmatrix}$$
+## Filmworld for addressing the how question of multisensory integration 
 
-![Projection matrix example](./figures/linear_projection_example.png) <!-- .element height="70%" width="70%"; -->
+ - present set of stimulus multiple times 
+ - some of them temporally coherent and 'true' (occurs in nature)
+ - some of them temporally incoherent and 'true' (animal and some background sound) 
+ - some of them temporally coherent but false (artificial sounds, dubbing) 
+ - some of them temporally inchoerent and false (random video and random audio)
 
 
-</div>
+## Multispaceworld 
 
-<!--v-->
 
-### PCA: objective 
+# Results 
 
-PCA tries to find the projection matrix that minmise reconstruction error: 
+## Filmworld 
 
-$$
-\mathcal{L}_\text{PCA} = \| \| X - D^\intercal D X \|\|^2
-$$
+### Recording regions / (experiments performed so far)
 
-where: 
+### Summary of neural response
 
- - $D$ is a fat short matrix (column > row)
- - $DX$ is the projection to your PC space 
- - $D^\intercal (DX)$ projects back (reconstruct) to the original space 
- 
-<!--v-->
+## Multispaceworld 
 
-### PCA: demo 
+### Summary of neural response 
 
-<iframe frameborder="0" width="100%" height="500pt" src="http://setosa.io/ev/principal-component-analysis/"></iframe>
+ - how many are unimodal 
+ - how many are audiovisual 
 
-<!--v-->
 
-### dPCA 
 
-<font size=5>
 
-We start with our data $X$. It has dimensions $N \times KSQT$
+# Future directions 
 
-<div id='left'> 
 
-- $K$ trials 
-- $S$ stimulus 
-</div>
- 
-<div id='right'> 
 
-- $Q$ decisions 
-- $T$ time bins 
-</div>
- 
-We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
 
-</font>
- 
-<font size=5>
 
-`$$ 
-x^i_{tdsk} = \overline{x} + \overline{x}_t + \overline{x}_s + \overline{x}_d + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{sd} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
-$$`
 
-`$$  
-\stackrel{\tiny grouping}{=} \overline{x} + \overline{x}_t + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
-$$`
- 
-</font>
- 
-<!--v-->
 
 ### dPCA: input data format
 
@@ -249,34 +164,6 @@ Demixed PCA tries to balance two goals: demixing and summarising .
 
 
 
-## Results of dPCA
-
-<!--v-->
-
-### Example of applying demixed PCA : task
-
-Romo 1999: Monkeys compare frequency of two vibrations 
-
-![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png) <!-- .element height="70%" width="40%"; style="margin:auto;display:block"-->
-
-<!--v-->
-
-### Example of applying demixed PCA : input data
-
- - Input data: we separate out our neural data based on stimulus condition: there are '6' possible stimulus conditions 
- - The input data is also separated out according to 2 decisions 
- - You then run dPCA through this data 
- 
- <!--v-->
- 
-### Example of applying demixed PCA : output of dPCA 
-
-<font size=5>
-
-Same as PCA, dPCA gives you the top $n$ principal components. 
-But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
-
-</font>
 
 <div id='left'>
  
