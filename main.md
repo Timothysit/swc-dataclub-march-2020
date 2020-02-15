@@ -8,9 +8,25 @@ revealOptions:
 ---
 
 
-# Multisensory sensory integration in the mouse cortex
+<style>
+.reveal section img { background:none; border:none; box-shadow:none; }
+.reveal h1 { font-size: 2em; }
+.reveal h2 { font-size: 1em; }
+</style>
+
+
+
+<font size=5>
+
+# Multimodal integration in the mouse cortex
+
+</font>
+
+<font size=5>
 
 ## AKA what I plan to do during my PhD
+
+</font>
 
 ### 2020 February 24 
 
@@ -18,21 +34,120 @@ revealOptions:
 
 
 
-## What is multisensory integration?
+## What is multimodal integration?
+
+
+
 
 <!--h-->
 
+<font size=5>
 
-## Where does multisensory integration occur? 
+## What is a multimodal neuron?
+
+</font>
+
+*Neuron respond to presense / specific property of more than one sensory modality.*
+
+<div id='left'>
+
+![Visual response neuron](./figures/visual_response_identity.png) 
+
+</div>
+
+<div id='right'>
+
+![Audio response neuron](./figures/audio_response_presense.png) 
+
+</div>
 
 <!--h-->
 
- - include graphic here showing 
-    - ease of recording (x-axis) 
-	- probability of getting multisensory response 
-	- expected number of neuorns that can be recorded from simultaneously (either 2P or neuropixels)
+<font size=5>
 
-## Is multisensory activity linear or linear? 
+## Where does multimodal integration occur? 
+
+</font>
+
+
+![Where to find multimodal response](./figures/where_to_find_multimodal_response.png) 
+
+	
+ <!--h-->
+
+<font size=5>
+
+## What is the relationship between multimodal response and unimodal response?
+
+</font>
+
+<div id='left'>
+
+![Linear multimodal response](./figures/linear_multimodal_response.png) 
+
+$$
+f(A + V) = f(A) + f(V)
+$$
+
+</div>
+
+<div id='right'>
+
+![Nonlinear multimodal response](./figures/nonlinear_multimodal_response.png) 
+
+$$
+f(A + V) = f(A) + f(V) + f(A, V)
+$$
+
+</div>
+
+<!--h-->
+
+### What are the neural mechanisms of multimodal decision making?
+
+[include the decision models from the PhD proposal]
+
+
+<!--h-->
+
+### Two main experiments to tackle the above questions 
+
+<div id='left'>
+
+Passive video presentation
+
+
+<video controls width="500">
+	   <source src="./videos/seal.webm" type="video/webm">
+	    <source src="./videos/seal.mp4" type="video/mp4" >
+</video>
+
+
+</div>
+
+
+<div id='right'>
+
+Audio-visual decision making task 
+
+![Pip's multispaceworld task](./figures/pip-multispaceworld-task-outline.png)
+
+
+</div>
+
+
+<!--v-->
+
+### Maybe a slide on high dimensional vs. low dimensional audio-visual stimulus?
+
+
+<!--v-->
+
+### Playing high dimensional audio-visual videos to look for multimodal neurons 
+
+[include filmworld combiantion figure here]
+
+
 
 <!--h-->
 
@@ -40,7 +155,7 @@ revealOptions:
 ## What determines whether multisensory activity will occur/develop? 
 
  - temporal coherence 
- - is supervised learning required for multisesnory integration in the cortex? 
+ - is supervised learning required for multimodal integration in the cortex? 
 
 
 <!--h-->
@@ -48,12 +163,39 @@ revealOptions:
 
 ## Filmworld: passive presentation of video with natural scene statistics
 
- - what is natural scene statistics and why is it important? 
+![Filmworld combinations](./figures/filmworld_all_combinations_manual_cropped.png) 
+
+
+
+
+
+<!--v-->
+
+Overall session structure 
+
+![Filmworld session structure](./figures/filmworld_experiment_overview_structure.png)
+
+
+Individual trial structure
+
+![Filmworld trial structure](./figures/filmworld_trial_structure.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+
+ 
+ <!--v-->
+ 
+  - what is natural scene statistics and why is it important? 
     - high dimensional
 	- (ecologically relevant?)
  - include figure of the design of filmworld 
  
+  <!--v-->
+
+ 
 ## Filmworld for addresssing the linearity question 
+
+<!--h-->
 
 ## Filmworld for addressing the how question of multisensory integration 
 
@@ -66,6 +208,7 @@ revealOptions:
 
 ## Multispaceworld 
 
+<!--h-->
 
 # Results 
 
@@ -75,12 +218,26 @@ revealOptions:
 
 ### Summary of neural response
 
+<!--h-->
+
 ## Multispaceworld 
+
+### Example neurons in active condition 
+
+### Example neurons in passive condition 
+
+
 
 ### Summary of neural response 
 
  - how many are unimodal 
  - how many are audiovisual 
+ 
+ <!--h-->
+ 
+### Choice selective neurons were predominantly found in M2
+
+
 
 
 
