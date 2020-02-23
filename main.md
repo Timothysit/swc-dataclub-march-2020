@@ -46,7 +46,7 @@ revealOptions:
 
 ## Outline 
 
- 1. General thoughts about studying audio-visual intgeration
+ 1. General thoughts about studying audio-visual integration
  2. Passive audio-visual response: experiment design and some preliminary analysis 
  3. Audio-visual decision making: electrophysiology analysis from Pip's data
  
@@ -180,7 +180,7 @@ Audio-visual decision making task
 
 
 
-<img src="./figures/filmworld_all_videos.png" alt="Girl in a jacket" width="700" height="600">
+<img src="./figures/filmworld_all_videos.png" alt="Filmworld all videos" width="700" height="600">
 
 
 
@@ -276,6 +276,12 @@ The first plane is always removed from analysis.
 
 </div>
 
+<!--v-->
+
+
+<iframe width="100%" height="600pt" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRWUTVbFb4g_bmR_KuU8ynFm67wpsi6xeG06qX_XRcQkF4CtlIfMBV5-iq2kLuCRqWAKGUq2Q9S3ktT/pubhtml?widget=true&amp;headers=false"></iframe>
+
+
 
 <!--h-->
 
@@ -336,7 +342,7 @@ Population decoding approach
 ### Other ideas
 
  - look at one-to-one decoding 
- - tune reguarlisation parameter
+ - tune regulurisation parameter
  
 
 
@@ -555,8 +561,9 @@ Some are just related to movement
 
 
 
+<!--v-->
 
-
+<iframe width="100%" height="600pt" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTk1w56bgGRBI4aoc4njVzvys9-WC60yz7livo-JODzwurYubD0fk5pxAZ6lnBqduOSZeu2rrOMwB4P/pubhtml?widget=true&amp;headers=false"></iframe>
 
 
 
