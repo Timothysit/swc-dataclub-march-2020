@@ -18,7 +18,7 @@ revealOptions:
 
 <font size=5>
 
-# Multimodal integration in the mouse cortex
+# Audio-visual integration in the mouse cortex
 
 </font>
 
@@ -28,14 +28,28 @@ revealOptions:
 
 </font>
 
+<font size=5>
+
+### Tim Sit
+
+</font>
+
+<font size=3>
+
 ### 2020 February 24 
+
+</font>
 
 <!--h-->
 
 
 
-## What is multimodal integration?
+## Outline 
 
+ 1. General thoughts about studying audio-visual intgeration
+ 2. Passive audio-visual response: experiment design and some preliminary analysis 
+ 3. Audio-visual decision making: electrophysiology analysis from Pip's data
+ 
 
 
 
@@ -105,7 +119,13 @@ $$
 
 ### What are the neural mechanisms of multimodal decision making?
 
-[include the decision models from the PhD proposal]
+![Race model intergation model](./figures/decision-models/late-integration-2.png)
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png)
+
+<!--v-->
+
+![Early integration model](./figures/decision-models/early-integration.png)
 
 
 <!--h-->
@@ -136,26 +156,16 @@ Audio-visual decision making task
 </div>
 
 
-<!--v-->
-
-### Maybe a slide on high dimensional vs. low dimensional audio-visual stimulus?
-
 
 <!--v-->
-
-### Playing high dimensional audio-visual videos to look for multimodal neurons 
-
-[include filmworld combiantion figure here]
-
-
-
-<!--h-->
 
 
 ## What determines whether multisensory activity will occur/develop? 
 
- - temporal coherence 
+ - temporal coherence?
  - is supervised learning required for multimodal integration in the cortex? 
+     - eg. associating reward / punishment to specific audio-visual pair 
+	 - eg. decision making task
 
 
 <!--h-->
@@ -185,15 +195,45 @@ Individual trial structure
 
 ![Filmworld trial structure](./figures/filmworld_trial_structure.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
 
+ <!--v-->
+ 
+Three presentation methods being tested 
 
+<font size=4>
+
+Gray interval (4 seconds / video)
+
+</font>
+
+![Interval method](./figures/filmworld/example-frames-int.png)
+
+<font size=4>
+
+Continuous (6 seconds / video)
+
+</font>
+
+![Continuous method](./figures/filmworld/example-frames.png)
+
+<font size=4>
+
+Fading (6 seconds / video)
+
+</font>
+
+![Fading method](./figures/filmworld/example-frames-fade.png)
+ 
 
  
  <!--v-->
  
-  - what is natural scene statistics and why is it important? 
-    - high dimensional
-	- (ecologically relevant?)
- - include figure of the design of filmworld 
+ 
+ Why natural videos > gratings / pure tones:
+  
+   - high dimensional
+	  - look at high dimensional neural activity 
+	  - more likely to evoke audio-visual activity
+   - (ecologically relevant?)
  
   <!--v-->
   
@@ -204,12 +244,37 @@ Individual trial structure
 ![Example activity (colorbar should be deconvovled rate I think)](./figures/filmworld/2p/TS003/2019-11-28/exp-2/test-audio-video-pair-all-cell.png)
 
  <!--v-->
+ 
+### Mean activity of a neuron to each audio-video pair 
+
+![Example visual neuron mean activity](./figures/filmworld/2p/TS003/2019-11-28/exp-2/test-audio-video-pair-cell-74.png)
+
+ <!--v-->
+
 
 ### Recording from 12 planes 
 
 ![Mean image of the 12 planes](./figures/filmworld/2p/TS003/2019-11-28/exp-2/all-planes-plot.png)
 
 The first plane is always removed from analysis.
+
+ <!--v-->
+ 
+### There is more activity when a movie is playing 
+
+<div id='left'>
+
+![Single neuron activity throughout experiment](./figures/filmworld/2p/TS003/2019-11-28/exp-2/single_neuron_trace_plane_number_7neuron_15.png)
+
+</div>
+
+
+
+<div id='right'>
+
+![Movie vs. no movie unity plot](./figures/filmworld/2p/TS003/2019-11-28/exp-2/movie_vs_no_movie_mean_activity.png)
+
+</div>
 
 
 <!--h-->
@@ -218,7 +283,7 @@ The first plane is always removed from analysis.
 
 Population decoding approach
 
-![TS003 audio/video decoding SVM](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/simple-svm-cv-split-classfication-accuracy.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+![TS003 audio/video decoding SVM](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/simple-svm-cv-split-classfication-accuracy.png) <!-- .element  width="40%"; style="margin:auto;display:block" -->
 
 <!--v-->
 
@@ -238,12 +303,42 @@ Population decoding approach
 </div>
 
 
-
 <div id='right'>
 
 ![TS003 audio decoding diff classifiers](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/audio-decoding-performance-diff-classifiers.png)
 
 </div>
+
+
+<!--v-->
+
+<font size=5>
+
+### Another example 
+
+</font>
+
+<div id='left'> 
+
+![TS004 audio / video decoding](./figures/filmworld/decoding/TS004-2019-12-18-1-PC-SVM-classification-accuracy.svg)
+
+</div>
+
+
+<div id='right'>
+
+![TS004 audio / video decoding](./figures/filmworld/decoding/TS004-2019-12-18-1-PC-KNN-classification-accuracy.svg)
+
+</div>
+
+<!--v-->
+
+### Other ideas
+
+ - look at one-to-one decoding 
+ - tune reguarlisation parameter
+ 
+
 
 <!--h-->
 
@@ -255,7 +350,14 @@ by looking at correlation across repeats
 
 </font>
 
-![TS004 interval video neuron](./figures/filmworld/correlation/plane_7_cell_45audio_0_correlation.png)
+![TS004 interval video neuron](./figures/filmworld/correlation/old_figs/plane_7_cell_45audio_0_correlation.png)
+
+
+<!--v-->
+
+![TS004 interval another example](./figures/filmworld/correlation/TS004_interval_plane_5_cell_497audio_0_correlation.png)
+
+
 
 
 <!--h-->
@@ -266,7 +368,13 @@ some neurons seem to care about auditory stimulus
 
 </font>
 
-![TS004 interval audio neuron](./figures/filmworld/correlation/plane_1_cell_31video_0_correlation.png)
+![TS004 interval audio neuron](./figures/filmworld/correlation/old_figs/plane_1_cell_31video_0_correlation.png)
+
+<!--v-->
+
+
+![TS004 audio neuron another example](./figures/filmworld/correlation/TS004_interval_plane_2_cell_33video_0_correlation.png)
+
 
 <!--h-->
 
@@ -292,28 +400,68 @@ some neurons seem to care about auditory stimulus
 
 ![TS004 interval all neuron audio and video corr](./figures/filmworld/correlation/TS004_interval_experiment_all_neuron_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
 
+<!--v-->
+
+![TS004 continuous experiment](./figures/filmworld/correlation/TS004_continuous_experiment_all_neuron_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
 <!--h-->
 
-![TS004 interval audio-video neuron video respones](./figures/filmworld/correlation/plane_5_cell_342audio_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+![TS004 interval audio-video neuron video respones](./figures/filmworld/correlation/old_figs/plane_5_cell_342audio_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+![TS004 interval audio-video neuron audio respones](./figures/filmworld/correlation/old_figs/plane_5_cell_342video_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
 
 
 
-![TS004 interval audio-video neuron audio respones](./figures/filmworld/correlation/plane_5_cell_342video_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+<!--h-->
 
 
+### Future directions
+
+1. Improve recording of timing of stimulus onset (esp. auditory stimulus)
+2. Correlate neural activity with audio energy, video energy, and body movement
+3. Auditory cortex recording
 
 <!--h-->
  
-## Filmworld for addresssing the linearity question 
-
-<!--h-->
 
 
+## Multispaceworld: neural basis of multisensory decision making
+
+![Race model intergation model](./figures/decision-models/late-integration-2.png)
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png)
+
+<!--v-->
+
+<div id='left'>
+
+Race model
+
+![Race model](./figures/decision-models/race_model.png)
+
+</div>
+
+<div id='right'>
+
+Drift model
+
+![Drift model](./figures/decision-models/drift_model.png)
 
 
-## Multispaceworld: neural basis of multsensory decision making
+![Coherent vs. conflict reaction time](./figures/pip_data_coherent_conflict_rt.png) <!-- .element  width="50%"; style="margin:auto;display:block" --> 
 
-[include multisensory decision making model here]
+
+
+</div>
+
+
+
+<!--v-->
+
+
+
 
 <!--h-->
 
@@ -367,6 +515,49 @@ Aligned to movement
 ![Auditory vs. visual trials movement decoding](./figures/multispaceworld/decode_left_right_100ms_before_movement_aud_vid_only_accuracy_paired_scatter_chart.svg)
 
 </div>
+
+
+<!--v-->
+
+<font size=5>
+
+Choice information comes early
+
+</font>
+
+<img src="./figures/multispaceworld/active-psth/early_movement_no_passive_response_s3_e21_b2_sig_idx_10_combined_exp_cell_idx_95.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+<!--v-->
+
+<font size=5>
+
+Some MOs respond in both active and passive condition
+
+</font>
+
+<img src="./figures/multispaceworld/active-psth/early_movement_decoding_subject_2_brain_area_3_exp_15_sig_idx_2_combined_exp_cell_idx_23.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+<!--v-->
+
+
+<font size=5>
+
+Some are just related to movement
+
+</font>
+
+
+<img src="./figures/multispaceworld/active-psth/after_movement_left_right_s3_e21_b2_sig_idx_16_combined_exp_cell_idx_82.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+
+
+
 
 
 <!--h-->
@@ -426,33 +617,52 @@ Decoding audio left/right in the same experiment as the example cell shown befor
 </div>
 
 
+<!--v-->
 
 
+### Time of auditory and visual information 
+
+<font size=5>
+
+Observation: 
+
+ - auditory response is faster than visual response 
+ - auditory response show an early peak and late peak in activity
+
+Hypothesis: 
+
+ - early peak in auditory response may signal auditory presense 
+ - whereas late auditory activity may signal auditory direction 
+ - this may explain auditory dominance effect observed in go/no-go task 
+ 
+ 
+ </font>
+ 
+ <!--v-->
+ 
+ ![Example neuoron that is close to illustrating the point](./figures/multispaceworld/peri_stimulus_audio_left_right_subject_6_experiment_54_cell_70w_grid_unimodal_only.svg)
+  
+
+<!--v-->
 
 
+![Mean of peak time ](./figures/multispaceworld/timeOfInfo/all_exp_sig_neuron_mean_time_of_peak_neuron_type_grouped_threshold_0p05.svg)
 
-TODO: also show visual and audio on/off
-
-
-<!--h-->
-
-## Multispaceworld 
-
-### Example neurons in active condition 
-
-### Example neurons in passive condition 
-
-
-
-### Summary of neural response 
-
- - how many are unimodal 
- - how many are audiovisual 
  
  <!--h-->
  
 
 # Future directions 
+
+<font size=7>
+ 
+1. More analysis of time course of audio and visual information 
+2. Relate auditory/visual bias in behaviour with neural activity
+3. Summarise main neuron types in MOs
+ 
+ 
+ </font>
+ 
 
  <!--h-->
  
@@ -460,10 +670,10 @@ TODO: also show visual and audio on/off
 
 
  - Pip: ephys analysis, rigbox help and rich tea biscuits
- - Stephane, Sam, Lauren, Michael: 2P 
+ - St&eacute;phane, Sam, Lauren, Michael: 2P 
  - Charu: surgery and animals
  - Bex: animals
- - Anwar, Kush, Sam, Celian: analysis discussions 
+ - Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
  - Jai and Miles: setting up video playback in rigbox-signals
 
  <!--v-->
@@ -482,6 +692,8 @@ TODO: also show visual and audio on/off
 
 ## Other ideas
 
+<!--v-->
+
 ## Filmworld for addressing the how question of multisensory integration 
 
  - present set of stimulus multiple times 
@@ -493,277 +705,10 @@ TODO: also show visual and audio on/off
 
 
 
-### dPCA: input data format
 
-<div id='left'>
 
-![Condition-decision matrix](./notebook/condition_decision_matrix.png) <!-- .element height="60%" width="90%"; -->
 
-</div>
-
-<div id='right'>
-
-![Data matrix input for dPCA](./notebook/data_matrix.png) <!-- .element height="60%" width="90%"; -->
-
-</div>
-
-<font size=5>
-where you have $N$ neurons, $K$ trials, $S$ stimulus, $D$ decisions and $T$ time points
-</font>
-
-<!--v-->
  
-### dPCA: taking the mean 
-
-![Taking the mean across a dimension dPCA matrix](./notebook/matrices_tiled_in_3D.png) <!-- .element height="70%" width="70%"; -->
-
-<!--v--> 
- 
-### dPCA: objective 
-
-<font size=6>
-We only want to reconstruct the contribution of each experimental variable individually.
-
-Remember: the $X_\phi$ matrices are those averages, plus some residual contribution/noise
-</font>
-
-$$
-X = \sum_{\phi = ( t, ts, td, tsd )} X_\phi + X_\text{res}
-$$
-
-<!--v-->
-
-### dPCA: objective 
-
-<font size=6>
-
-This can be done by having a separate decoder transformation matrix (PCA: same matrix to compress and map back to the original space):
-
-</font>
-
-$$
-\mathcal{L}_\text{dPCA}^\phi = \vert\vert \mathbf{X}_\phi - \mathbf{F}_\phi\mathbf{D}_\phi\mathbf{X} \vert\vert^2
-$$
-
-<font size=5>
-
-where: 
-
- - $\mathbf{D}_\phi$ is used to compress the data into a space with fewer dimensions 
- - $\mathbf{F}_\phi$ is used to map the data to the mean activity of interest (PCA: original data) 
-
-</font>
-
-<!--v-->
-
-Demixed PCA tries to balance two goals: demixing and summarising .
-
-![Demixed PCA example](./figures/dPCA/fig-2-bdf.png) 
-
-<!--h-->
-
-
-
-
-<div id='left'>
- 
-![Component and variance](./figures/dPCA/fig-3-cd.png) <!-- .element height="70%" width="70%";  -->
-
-</div>
-
-<div id='right'>
-
-<font size=4>
-
-1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
-2. Decision component: differences in decision (and time) best demixes
-3. Interaction component: variability due to interaction between stimulus and decision 
-4. Condition-independent: does not depend on  particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$)
- 
-</font>
- 
- </div> 
-
-
-<!--v-->
-
-### Example of applying demixed PCA: looking at how each PC vary with time 
-
-![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png) <!-- .element height="50%" width="50%"; style="margin:auto;display:block" -->
-
-<!--h--> 
-
-### Caveats of dPCA
-
-<font size=6>
-
-It does not work if: 
-
- - you don't have all combinations of task parameters 
- - continuous task parameters 
- - you need a lot more neurons than your task parameters 
- 
- 
- There are workarounds for: 
- 
-  - your trials are unbalanced (re-balancing procedure)
-  - different trial lengths (time warping)
-</font> 
-
-<!--h-->
-
-## Other demixing / summarising methods
-
-<!--v-->
-
-
-### Non-linear extension of dPCA using kernels (kdPCA)
-[Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
-
-<!--v-->
-
-#### Why do we need nonlinear methods? 
-
-
-![Latimer kernel PCA demo](./figures/dPCA/latimer2018-fig-2ab.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
-
-
-
-<!--v-->
-
-<div id='left'>
-
-Pros
-
- - it's non-linear: more flexibility 
- - (uses kernels)
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - extracted components are maybe less interpretable  
- - more parameter tuning (and so need more robust cross-validation)
-
-</div>
-
-
-
-<!--v-->
-
-### Tensor Component Analysis (TCA)
-[Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
-
-<!--v-->
-
-
-### What is tensor component analysis?
-
-<div id='left'>
-
-![Latimer kernel PCA demo](./figures/other-dim-reduce-methods/TCA-paper-figure-1.png) <!-- .element style="margin:auto;display:block" -->
-
-</div>
-
-
-<div id='right'>
-
-<font size=5>
-
-- a matrix is a second order tensor, and (d)PCA is a dimensionality reduction on second order tensors 
-- TCA is a dimensionality reduction method on third order tensors 
-- previous approaches to dimensionality reduction focus on two modes (tensor jargon for "axes"): neuron and time
-- TCA is a way to add more modes to reduce dimensionality: eg. trials
-
-</font>
-
-</div>
-
-
-<!--v-->
-
-
-<div id='left'>
-
-Pros
-
- - They claim it's a "natural generalization of PCA to higher-order tensors" 
- - unsupservised method 
- - can handle continuous experimental parameters
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - (Lucas thinks they are lying somewhere)
- - linear 
- - not dynamical
- - Joana and Maneesh have a different tensor method 
- 
-</div>
-
-<!--v-->
-
-### Latent Factor Analysis via Dynamical Systems (LFADS)
-
-[Pandarinath 2018: Inferring single-trial neural population dynamics using sequential auto-encoders](https://www.nature.com/articles/s41592-018-0109-9)
-
-
-<!--v-->
-
-<div id='left'>
-
-Pros
-
- - dynamical model: you enforce temporal correlation (you don't assume time points are independent)
- - (it is more true)
-
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - does not demix; only summarise 
- - do we like RNNs?
- 
- 
-</div>
-
-
-<!--h-->
-
-
-### Other methods we have no time to talk about 
-
- - Gaussian Process Factor Analysis 
- - Independent Component Analysis
- - tSNE
- 
- 
- Good reviews papers:
-
- - [Cunningham and Byron 2014: Dimensionality reduction for large-scale neural recordings](https://www.nature.com/articles/nn.3776)
- 
-<!--v-->
-
-#### tSNE 
-
-<iframe frameborder="0" width="100%" height="500pt" src="https://distill.pub/2016/misread-tsne/"></iframe>
-
-
-<!--h-->
-
-### Comparing dimensionality reduction methods
-
-
-![Dim reduction methods comparison](./notebook/dim_reduction_methods_prop.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
-
 
 
 
