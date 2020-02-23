@@ -166,6 +166,11 @@ Audio-visual decision making task
 ![Filmworld combinations](./figures/filmworld_all_combinations_manual_cropped.png) 
 
 
+<!--v-->
+
+
+
+<img src="./figures/filmworld_all_videos.png" alt="Girl in a jacket" width="700" height="600">
 
 
 
@@ -191,32 +196,243 @@ Individual trial structure
  - include figure of the design of filmworld 
  
   <!--v-->
+  
+<!--h-->
 
+## Filmworld: example activity from one experiment
+
+![Example activity (colorbar should be deconvovled rate I think)](./figures/filmworld/2p/TS003/2019-11-28/exp-2/test-audio-video-pair-all-cell.png)
+
+ <!--v-->
+
+### Recording from 12 planes 
+
+![Mean image of the 12 planes](./figures/filmworld/2p/TS003/2019-11-28/exp-2/all-planes-plot.png)
+
+The first plane is always removed from analysis.
+
+
+<!--h-->
+
+## Does PPC/V1 contain information about video and/or audio stimulus?
+
+Population decoding approach
+
+![TS003 audio/video decoding SVM](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/simple-svm-cv-split-classfication-accuracy.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+<!--v-->
+
+<font size=5>
+  
+### Decoding using different classifiers 
+
+</font>
+
+
+<div id='left'>
+
+
+![TS003 video decoding diff classifiers](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/video-decoding-performance-diff-classifiers.png)
+
+
+</div>
+
+
+
+<div id='right'>
+
+![TS003 audio decoding diff classifiers](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/audio-decoding-performance-diff-classifiers.png)
+
+</div>
+
+<!--h-->
+
+## Looking at audio / visual response in individual neurons 
+
+<font size=5>
+
+by looking at correlation across repeats
+
+</font>
+
+![TS004 interval video neuron](./figures/filmworld/correlation/plane_7_cell_45audio_0_correlation.png)
+
+
+<!--h-->
+
+<font size=5>
+
+some neurons seem to care about auditory stimulus
+
+</font>
+
+![TS004 interval audio neuron](./figures/filmworld/correlation/plane_1_cell_31video_0_correlation.png)
+
+<!--h-->
+
+<font size=5>
+
+## Are neurons more correlated in video-only conditions than audio-only conditions?
+
+</font>
+
+![Correlation scenaruios](./figures/correlation_conceptual_figure_4_conditions.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+<!--h-->
+
+
+
+<font size=5>
+
+## Are neurons more correlated in video-only conditions than audio-only conditions?
+
+</font>
+
+
+![TS004 interval all neuron audio and video corr](./figures/filmworld/correlation/TS004_interval_experiment_all_neuron_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+<!--h-->
+
+![TS004 interval audio-video neuron video respones](./figures/filmworld/correlation/plane_5_cell_342audio_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+
+![TS004 interval audio-video neuron audio respones](./figures/filmworld/correlation/plane_5_cell_342video_0_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+
+<!--h-->
  
 ## Filmworld for addresssing the linearity question 
 
 <!--h-->
 
-## Filmworld for addressing the how question of multisensory integration 
-
- - present set of stimulus multiple times 
- - some of them temporally coherent and 'true' (occurs in nature)
- - some of them temporally incoherent and 'true' (animal and some background sound) 
- - some of them temporally coherent but false (artificial sounds, dubbing) 
- - some of them temporally inchoerent and false (random video and random audio)
 
 
-## Multispaceworld 
+
+## Multispaceworld: neural basis of multsensory decision making
+
+[include multisensory decision making model here]
 
 <!--h-->
 
-# Results 
+## MOs contains information about choice 
 
-## Filmworld 
 
-### Recording regions / (experiments performed so far)
+and as demonstrated by optogenetic inactivation, is necessary for multisensory decision making
 
-### Summary of neural response
+
+<div id='left'>
+
+![Movement aligned movement decoding bar chart](./figures/multispaceworld/decode_left_right_100ms_before_movement_brain_region_accuracy_bar_chart.svg)
+
+</div>
+
+<div id='right'>
+
+![Stimulus aligned movement decoding bar chart ](./figures/multispaceworld/decode_left_right_100ms_after_stimulus_brain_region_accuracy_bar_chart.svg)
+
+</div>
+
+<!--v-->
+
+<div id='left'>
+
+Aligned to stimulus
+
+![Stimulus aligned movement decoding](./figures/multispaceworld/decode_response_lr_stim_aligned_all_subject_exp_averaged_rel_accuracy_.svg)
+
+</div> 
+
+<div id='right'>
+
+Aligned to movement
+
+![Movement aligned movement decoding](./figures/multispaceworld/all_subject_exp_averaged_rel_accuracy_decode_lr_aligned_to_movement.svg)
+
+</div>
+
+
+<!--v-->
+
+<div id='left'>
+
+![Coherent vs. conflict condition movement decoding](./figures/multispaceworld/decode_left_right_100ms_before_movement_coherent_conflict_accuracy_bar_chart.svg)
+
+</div>
+
+<div id='right'>
+
+![Auditory vs. visual trials movement decoding](./figures/multispaceworld/decode_left_right_100ms_before_movement_aud_vid_only_accuracy_paired_scatter_chart.svg)
+
+</div>
+
+
+<!--h-->
+
+
+
+## MOs may not be purely motor 
+
+Passive direction-dependent auditory response in MOs 
+
+<div id='left'>
+
+![Stimulus time aligned auditory response](./figures/multispaceworld/passiveReponse/aud_left_right_subject_4_exp_32_cell_48.png) <!-- .element  width="100%"; style="margin:auto;display:block" -->
+
+</div>
+
+
+<div id='right'>
+
+![Stimulus time aligned auditory response scatter ](./figures/multispaceworld/passiveReponse/aud_left_right_subject_4_exp_32_cell_48_scatter.png) <!-- .element  width="100%"; style="margin:auto;display:block" -->
+
+</div>
+
+
+<!--v-->
+
+<font size=5>
+
+### Decoding of auditory direction in passive condition is poor using all neurons
+
+</font>
+
+<font size=5>
+
+Decoding audio left/right in the same experiment as the example cell shown before 
+
+</font>
+
+![Audio left/right decoding](./figures/multispaceworld/passiveReponse/subject_4_exp_32__left_right_windowed_classification_svm_l1_C_untuned_w_hline_w_error_shade_brain_regions_combined.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+<!--v-->
+
+
+### MOs responds to audio onset in passive conditions 
+
+<div id='left'>
+
+![Audio on/off activated](./figures/multispaceworld/passiveReponse/aud_on_off_subject_3_exp_21_cell_89_scatter.png)
+
+</div>
+
+<div id='right'>
+
+![Audio on/off suppressed](./figures/multispaceworld/passiveReponse/aud_on_off_subject_4_exp_34_cell_34_scatter.png)
+
+
+</div>
+
+
+
+
+
+
+
+TODO: also show visual and audio on/off
+
 
 <!--h-->
 
@@ -235,17 +451,44 @@ Individual trial structure
  
  <!--h-->
  
-### Choice selective neurons were predominantly found in M2
-
-
-
-
-
 
 # Future directions 
 
+ <!--h-->
+ 
+# Thanks to 
 
 
+ - Pip: ephys analysis, rigbox help and rich tea biscuits
+ - Stephane, Sam, Lauren, Michael: 2P 
+ - Charu: surgery and animals
+ - Bex: animals
+ - Anwar, Kush, Sam, Celian: analysis discussions 
+ - Jai and Miles: setting up video playback in rigbox-signals
+
+ <!--v-->
+ 
+## Technical acknowledgments 
+
+ - running experiments: rigbox, signals
+ - 2P data processing: suite2p, facemap 
+ - Data organisation: xarray, dask, pandas
+ 
+
+
+
+ <!--h-->
+
+
+## Other ideas
+
+## Filmworld for addressing the how question of multisensory integration 
+
+ - present set of stimulus multiple times 
+ - some of them temporally coherent and 'true' (occurs in nature)
+ - some of them temporally incoherent and 'true' (animal and some background sound) 
+ - some of them temporally coherent but false (artificial sounds, dubbing) 
+ - some of them temporally inchoerent and false (random video and random audio)
 
 
 
