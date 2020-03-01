@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>dPCA</title>
+    <title>Audiovisual activity in the mouse cortex</title>
     <link rel="stylesheet" href="./css/reveal.css" />
     <link rel="stylesheet" href="./css/theme/white.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/zenburn.css" />
@@ -16,474 +16,1104 @@
       <div class="slides"><section  data-markdown><script type="text/template">
 
 
-# Demixing and summarising neural activity 
+<style>
+.reveal section img { background:none; border:none; box-shadow:none; }
+.reveal h1 { font-size: 2em; }
+.reveal h2 { font-size: 1em; }
+.reveal p { font-size: 0.5em; }
+</style>
+
+
+
+<font size=5>
+
+# Audiovisual activity in the mouse cortex
+
+</font>
+
+
+<font size=5>
+
+### Tim Sit
+
+</font>
+
+<font size=3>
+
+### 2020 March 4
+
+</font>
+
+</script></section><section  data-markdown><script type="text/template">
+
+## Multimodal integration 
+
+
+![Audiovisual integration abstract figure](./figures/intro-to-multimodal/abstract-multimodal-percept.png) <!-- .element  width="80%"; style="margin:auto;display:block" -->
+
+
+
+</script></section><section  data-markdown><script type="text/template">
+
+
+### Audiovisual illusions
+
+<div id='left'>
+
+
+McGurk Effect
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PWGeUztTkRA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
+
+
+<div id='right'> 
+
+Double-flash illusion 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yCpsQ8LZOco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+
+
+## What is the neural basis of multimodal integration?
+
+
+<div id='left'>
+
+Late integration hypothesis 
+
+![Late integration model](./figures/intro-to-multimodal/v-simple-late-integration-model.png) <!-- .element  width="80%"; style="margin:auto;display:block" -->
+
+
+
+</div>
+
+
+<div id='right'>
+
+The current more complex view: 'Feedback hypothesis' <!-- .element: class="fragment" data-fragment-index="2" -->
+
+![Feedback between primary sensory areas](./figures/intro-to-multimodal/meijer2019_circuit_connection.png) <!-- .element  width="80%"; style="margin:auto;display:block" --> <!-- .element: class="fragment" data-fragment-index="2" -->
+
+<font size=5>
+
+*Meijer et al 2019: The circuit architecture of cortical multisensory processing* <!-- .element: class="fragment" data-fragment-index="2" -->
+
+
+</font>
+
+</div>
+
+
+</script></section><section  data-markdown><script type="text/template">
+
+
+
+## Research project: neural response to high-dimensional audiovisual stimulus
+
+
+<div id='left'>
+
+Low dimensional audio-visual stimuli
+
+![Orientation grating pairs](./figures/orientation_pure_tone_combinations_cropped.png)
+
+<font size=5>
+
+*Meijer et al 2017: Audiovisual modulation in mouse primary visual cortex depends on cross-modal stimulus configuration and congruency*
+
+*Kn&ouml;fel et al 2019: Audio-visual experience strengthens multisensory assemblies in adult mouse visual cortex*
+
+
+
+</font>
+
+</div>
+
+
+<div id='right'>
+
+High-dimensional audio-visual stimuli <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<img src="./figures/filmworld_all_combinations_manual_cropped.png" alt="Filmworld combinations" width="700" height="200"> <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<font size=5>
+
+*Stringer and Pachitariu 2019: High-dimensional geometry of population response in visual cortex* <!-- .element: class="fragment" data-fragment-index="1" -->
+
+</font>
+
+
+</div>
+
 
 </script></section><section ><section data-markdown><script type="text/template">
 
 
+## Questions about (high dimensional) multimodal response in the mouse cortex 
 
-## Introduction
-
-<font size=10>
-
-We have data (spike trains). Loads of it. 
-
-</font>
-
-**What do we do???**
-
-</script></section><section data-markdown><script type="text/template">
-
-### What is "demixing"? 
-
-<font size=6>
-
-_mixed selectivity_: individual neurons are modulated by multiple task parameters (Raposo Kaufman Churchland (2014))
-
-we want to _demix_ at the level of: 
-
- - individual neurons: neuron codes for both $x$ and $y$,  
- - population:
-  - part of population codes for $x$, another part codes for $y$
-  - OR all individual neurons have mixed selectivity (a.k.a _mess_)
-  
-</font>   
-
-</script></section><section data-markdown><script type="text/template">
-
-### What is "summarising"?
-
- - we want to describe the dynamics of neural activity in lower dimensions 
- - ie. explains variability of the data: both variability due to task parameters and intrinsic stochasticity (the neuron is irregular)
- - you want to reconstruct your data using that lower-dim representation (_interpretability_)
-
-</script></section></section><section ><section data-markdown><script type="text/template">
-
-
-
-## Approaches
-
-| Method | Demixes? | Summarises? | Cool? |
-|---------|---------|----------|--|
-| statistical test | Yes | No | No.. |
-| LDA | Yes | No | Meh |
-| PCA, GPFA, ... | No | Yes | I guess |
-| dPCA | Yes | Yes | <p>&#129321;</p> |
-
-We'll focus on [Kobak et al 2016: Demixed principal component analysis of neural population vector](https://elifesciences.org/articles/10989)
-
-</script></section><section data-markdown><script type="text/template">
-
-### Traditional statistical tests
-
-<font size=5>
-
-- The 'standard' approach of neuroscience: perform a t-test (or any two-sample comparison test) of the firing rate of each neuron before and after the stimulus/response. This can be thought of as demixing. 
-  - you find (threshold) $x$ % of neurons that respond to $a$ and $y$ % of neurons that respond to $b$ so that at each time point we 'know' the fraction of neurons responding to one variable or another
-  - but that's single variable coding, we lose mixed selectivity, we lose saying what contribution in the neuron response comes from each variable
-  - and we also don't account for population coding (different neurons coding same variable but in different ways)
-  
-a better approach will be to consider the activity of all neurons _together_
-  
-</font>
-
-</script></section><section data-markdown><script type="text/template">
-
-### PCA: Quick introduction
-
-We want to summarise high dimensional neural activity in lower dimensions to make it easier to visualise / interpret the data. 
-
-http://setosa.io/ev/principal-component-analysis/
-
-</script></section><section data-markdown><script type="text/template">
-
-### PCA: Quick introduction 
-
-Matrices transform vectors. 
-
-<iframe frameborder="0" width="100%" height="500pt" src="https://ncase.me/matrix/"></iframe>
-
-</script></section><section data-markdown><script type="text/template">
-
-### PCA: projections 
 
 <div id='left'> 
 
-A **non-square** matrix performs a projection when it transform a vector to a space with different dimension.
+**1. Where does multimodal integration occur?** <!-- .element: class="fragment" data-fragment-index="1" -->
 
- - \# columns: dimension of your _input_ 
- - \# rows: dimension of your _output_
- 
- </div>
- 
-<div id='right'> 
+**2. What is the relationship between unimodal and multimodal response?** <!-- .element: class="fragment" data-fragment-index="2" -->
 
-_Example_: transform vector by a  $1 \times 2$ matrix: $$A\vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix}\begin{bmatrix} v_1 \\\\ v_2\end{bmatrix}$$
-
-![Projection matrix example](./figures/linear_projection_example.png) <!-- .element height="70%" width="70%"; -->
+**3. What is the circuit architecture of audio-visual decision making?** <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
-</div>
+
+
+</div> 
+
+
+
+<div id='right'>
+
+![Where to find multimodal response](./figures/where_to_find_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+
+![Linear multimodal response](./figures/linear_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+
+$$f(A + V) = f(A) + f(V)$$  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+
+
+
+![Nonlinear multimodal response](./figures/nonlinear_multimodal_response.png) <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+
+$$f(A + V) = f(A) + f(V) + f(A, V)$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+
+Race model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+![Race model intergation model](./figures/decision-models/late-integration-2.png) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+
+Drift model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+Early integration model of multimoda decision making <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
+
+![Early integration model](./figures/decision-models/early-integration.png) <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
+
+
+
+</div> 
+
+
 
 </script></section><section data-markdown><script type="text/template">
 
-### PCA: objective 
 
-PCA tries to find the projection matrix that minmise reconstruction error: 
-
-$$
-\mathcal{L}_\text{PCA} = \| \| X - D^\intercal D X \|\|^2
-$$
-
-where: 
-
- - $D$ is a fat short matrix (column > row)
- - $DX$ is the projection to your PC space 
- - $D^\intercal (DX)$ projects back (reconstruct) to the original space 
- 
-</script></section><section data-markdown><script type="text/template">
-
-### PCA: demo 
-
-<iframe frameborder="0" width="100%" height="500pt" src="http://setosa.io/ev/principal-component-analysis/"></iframe>
-
-</script></section><section data-markdown><script type="text/template">
-
-### dPCA 
-
-<font size=5>
-
-We start with our data $X$. It has dimensions $N \times KSQT$
-
-<div id='left'> 
-
-- $K$ trials 
-- $S$ stimulus 
-</div>
- 
-<div id='right'> 
-
-- $Q$ decisions 
-- $T$ time bins 
-</div>
- 
-We decompose the activity of each neuron by the contribution of each experiment variable and their interactions: 
+## What is a multimodal neuron?
 
 </font>
- 
-<font size=5>
 
-`$$ 
-x^i_{tdsk} = \overline{x} + \overline{x}_t + \overline{x}_s + \overline{x}_d + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{sd} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
-$$`
-
-`$$  
-\stackrel{\tiny grouping}{=} \overline{x} + \overline{x}_t + \overline{x}_{ts} + \overline{x}_{td} + \overline{x}_{tsd} + \varepsilon_{tdsk} 
-$$`
- 
-</font>
- 
-</script></section><section data-markdown><script type="text/template">
-
-### dPCA: input data format
+*Neuron respond to presense / specific property of more than one sensory modality.*
 
 <div id='left'>
 
-![Condition-decision matrix](./notebook/condition_decision_matrix.png) <!-- .element height="60%" width="90%"; -->
+![Visual response neuron](./figures/visual_response_identity.png) 
 
 </div>
 
 <div id='right'>
 
-![Data matrix input for dPCA](./notebook/data_matrix.png) <!-- .element height="60%" width="90%"; -->
+![Audio response neuron](./figures/audio_response_presense.png) 
 
 </div>
 
-<font size=5>
-where you have $N$ neurons, $K$ trials, $S$ stimulus, $D$ decisions and $T$ time points
-</font>
 
-</script></section><section data-markdown><script type="text/template">
- 
-### dPCA: taking the mean 
-
-![Taking the mean across a dimension dPCA matrix](./notebook/matrices_tiled_in_3D.png) <!-- .element height="70%" width="70%"; -->
-
-</script></section><section data-markdown><script type="text/template"> 
- 
-### dPCA: objective 
-
-<font size=6>
-We only want to reconstruct the contribution of each experimental variable individually.
-
-Remember: the $X_\phi$ matrices are those averages, plus some residual contribution/noise
-</font>
-
-$$
-X = \sum_{\phi = ( t, ts, td, tsd )} X_\phi + X_\text{res}
-$$
-
-</script></section><section data-markdown><script type="text/template">
-
-### dPCA: objective 
-
-<font size=6>
-
-This can be done by having a separate decoder transformation matrix (PCA: same matrix to compress and map back to the original space):
-
-</font>
-
-$$
-\mathcal{L}_\text{dPCA}^\phi = \vert\vert \mathbf{X}_\phi - \mathbf{F}_\phi\mathbf{D}_\phi\mathbf{X} \vert\vert^2
-$$
-
-<font size=5>
-
-where: 
-
- - $\mathbf{D}_\phi$ is used to compress the data into a space with fewer dimensions 
- - $\mathbf{F}_\phi$ is used to map the data to the mean activity of interest (PCA: original data) 
-
-</font>
-
-</script></section><section data-markdown><script type="text/template">
-
-Demixed PCA tries to balance two goals: demixing and summarising .
-
-![Demixed PCA example](./figures/dPCA/fig-2-bdf.png) 
-
-</script></section></section><section ><section data-markdown><script type="text/template">
-
-
-
-## Results of dPCA
-
-</script></section><section data-markdown><script type="text/template">
-
-### Example of applying demixed PCA : task
-
-Romo 1999: Monkeys compare frequency of two vibrations 
-
-![Romo 1999 task](./figures/dPCA/romo-1999-fig-ab.png) <!-- .element height="70%" width="40%"; style="margin:auto;display:block"-->
-
-</script></section><section data-markdown><script type="text/template">
-
-### Example of applying demixed PCA : input data
-
- - Input data: we separate out our neural data based on stimulus condition: there are '6' possible stimulus conditions 
- - The input data is also separated out according to 2 decisions 
- - You then run dPCA through this data 
- 
- </script></section><section data-markdown><script type="text/template">
- 
-### Example of applying demixed PCA : output of dPCA 
-
-<font size=5>
-
-Same as PCA, dPCA gives you the top $n$ principal components. 
-But dPCA also gives you the experimental variable which the component explains most of the variability of neural activity: 
-
-</font>
-
-<div id='left'>
- 
-![Component and variance](./figures/dPCA/fig-3-cd.png) <!-- .element height="70%" width="70%";  -->
-
-</div>
-
-<div id='right'>
-
-<font size=4>
-
-1. Stimulus component: axis that best demixes the differences in neural activity due to differences in stimulus 
-2. Decision component: differences in decision (and time) best demixes
-3. Interaction component: variability due to interaction between stimulus and decision 
-4. Condition-independent: does not depend on  particular stimulus / decision, but due to either factors that vary with time (eg. the fact that you are presenting the vibration from time $t_1$ to time $t_2$)
- 
-</font>
- 
- </div> 
-
-
-</script></section><section data-markdown><script type="text/template">
-
-### Example of applying demixed PCA: looking at how each PC vary with time 
-
-![Changes of projected neural activity over time](./figures/dPCA/fig-3-b.png) <!-- .element height="50%" width="50%"; style="margin:auto;display:block" -->
-
-</script></section></section><section  data-markdown><script type="text/template"> 
-
-### Caveats of dPCA
-
-<font size=6>
-
-It does not work if: 
-
- - you don't have all combinations of task parameters 
- - continuous task parameters 
- - you need a lot more neurons than your task parameters 
- 
- 
- There are workarounds for: 
- 
-  - your trials are unbalanced (re-balancing procedure)
-  - different trial lengths (time warping)
-</font> 
-
-</script></section><section ><section data-markdown><script type="text/template">
-
-## Other demixing / summarising methods
-
-</script></section><section data-markdown><script type="text/template">
-
-
-### Non-linear extension of dPCA using kernels (kdPCA)
-[Latimer 2019: Nonlinear demixed component analysis for neural population data as a low-rank kernel regression problem](https://nbdt.scholasticahq.com/article/11523-nonlinear-demixed-component-analysis-for-neural-population-data-as-a-low-rank-kernel-regression-problem)
-
-</script></section><section data-markdown><script type="text/template">
-
-#### Why do we need nonlinear methods? 
-
-
-![Latimer kernel PCA demo](./figures/dPCA/latimer2018-fig-2ab.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
-
-
-
-</script></section><section data-markdown><script type="text/template">
-
-<div id='left'>
-
-Pros
-
- - it's non-linear: more flexibility 
- - (uses kernels)
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - extracted components are maybe less interpretable  
- - more parameter tuning (and so need more robust cross-validation)
-
-</div>
-
-
-
-</script></section><section data-markdown><script type="text/template">
-
-### Tensor Component Analysis (TCA)
-[Williams et al. 2018: Unsupervised Discovery of Demixed, Low-Dimensional Neural Dynamcis across Multiple Timescales through Tensor Component Analysis](https://www.sciencedirect.com/science/article/pii/S0896627318303878)
-
-</script></section><section data-markdown><script type="text/template">
-
-
-### What is tensor component analysis?
-
-<div id='left'>
-
-![Latimer kernel PCA demo](./figures/other-dim-reduce-methods/TCA-paper-figure-1.png) <!-- .element style="margin:auto;display:block" -->
-
-</div>
-
-
-<div id='right'>
-
-<font size=5>
-
-- a matrix is a second order tensor, and (d)PCA is a dimensionality reduction on second order tensors 
-- TCA is a dimensionality reduction method on third order tensors 
-- previous approaches to dimensionality reduction focus on two modes (tensor jargon for "axes"): neuron and time
-- TCA is a way to add more modes to reduce dimensionality: eg. trials
-
-</font>
-
-</div>
-
-
-</script></section><section data-markdown><script type="text/template">
-
-
-<div id='left'>
-
-Pros
-
- - They claim it's a "natural generalization of PCA to higher-order tensors" 
- - unsupservised method 
- - can handle continuous experimental parameters
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - (Lucas thinks they are lying somewhere)
- - linear 
- - not dynamical
- - Joana and Maneesh have a different tensor method 
- 
-</div>
-
-</script></section><section data-markdown><script type="text/template">
-
-### Latent Factor Analysis via Dynamical Systems (LFADS)
-
-[Pandarinath 2018: Inferring single-trial neural population dynamics using sequential auto-encoders](https://www.nature.com/articles/s41592-018-0109-9)
-
-
-</script></section><section data-markdown><script type="text/template">
-
-<div id='left'>
-
-Pros
-
- - dynamical model: you enforce temporal correlation (you don't assume time points are independent)
- - (it is more true)
-
-
-</div>
-
-<div id ='right'>
-
-Cons 
-
- - does not demix; only summarise 
- - do we like RNNs?
- 
- 
-</div>
-
-
-</script></section></section><section ><section data-markdown><script type="text/template">
-
-
-### Other methods we have no time to talk about 
-
- - Gaussian Process Factor Analysis 
- - Independent Component Analysis
- - tSNE
- 
- 
- Good reviews papers:
-
- - [Cunningham and Byron 2014: Dimensionality reduction for large-scale neural recordings](https://www.nature.com/articles/nn.3776)
- 
-</script></section><section data-markdown><script type="text/template">
-
-#### tSNE 
-
-<iframe frameborder="0" width="100%" height="500pt" src="https://distill.pub/2016/misread-tsne/"></iframe>
 
 
 </script></section></section><section  data-markdown><script type="text/template">
 
-### Comparing dimensionality reduction methods
 
 
-![Dim reduction methods comparison](./notebook/dim_reduction_methods_prop.png) <!-- .element height="70%" width="60%"; style="margin:auto;display:block" -->
+## Project plan 
 
+<div id='left'>
+
+
+Phase 1: Passive audio-visual response in the visual, auditory and frontal cortex.
+
+Phase 2: Learning of audio-visual statistics 
+<font size=3>
+ - Plan A: unsupervised learning 
+ - Plan B: associative learning using reward
+ 
+</font>
+
+Phase 3: Decision making with learned audio-visual associations 
+
+</div>
+
+<div id='right'>
+
+
+**Passive stimuli presentation** <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+![Passive stimuli presentation](./figures/filmworld-6-by-6-stimuli.png)  <!-- .element: class="fragment current-visible" data-fragment-index="1" --> 
+
+
+**Passive presentation with altered audio-visual statistics and/or reward** <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+
+![Passive stimuli presentation](./figures/filmworld-changing-video-statistics.png)  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->  
+
+
+
+**Audio-visual decision making task** <!-- .element: class="fragment" data-fragment-index="3" -->
+
+![Pip's multispaceworld task](./figures/pip-multispaceworld-task-outline.png) <!-- .element: class="fragment" data-fragment-index="3" -->
+
+
+
+</script></section><section ><section data-markdown><script type="text/template">
+
+
+
+<font size=4>
+
+## Filmworld: passive presentation of video with natural scene statistics
+
+</font> 
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-1-audio-1.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-1-audio-1.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-2-audio-2.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-2-audio-2.mp4" type="video/mp4" >
+</video>
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-3-audio-3.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-3-audio-3.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-4-audio-4.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-4-audio-4.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-5-audio-5.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-5-audio-5.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-6-audio-6.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-6-audio-6.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-7-audio-7.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-7-audio-7.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-8-audio-8.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-8-audio-8.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-9-audio-9.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-9-audio-9.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-10-audio-10.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-10-audio-10.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-11-audio-11.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-11-audio-11.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-12-audio-12.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-12-audio-12.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-13-audio-13.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-13-audio-13.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-14-audio-14.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-14-audio-14.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-15-audio-15.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-15-audio-15.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-16-audio-16.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-16-audio-16.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-17-audio-17.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-17-audio-17.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-18-audio-18.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-18-audio-18.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-19-audio-19.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-19-audio-19.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-20-audio-20.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-20-audio-20.mp4" type="video/mp4" >
+</video>
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-21-audio-21.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-21-audio-21.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-22-audio-22.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-22-audio-22.mp4" type="video/mp4" >
+</video>
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-23-audio-23.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-23-audio-23.mp4" type="video/mp4" >
+</video>
+
+
+<video controls width="150">
+	   <source src="./videos/filmworld/video-24-audio-24.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-24-audio-24.mp4" type="video/mp4" >
+</video>
+
+
+
+
+
+</script></section><section data-markdown><script type="text/template"> 
+
+<img src="./figures/filmworld_all_videos.png" alt="Filmworld all videos" width="700" height="600">
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+Overall session structure 
+
+![Filmworld session structure](./figures/filmworld_experiment_overview_structure.png)
+
+
+Individual trial structure
+
+![Filmworld trial structure](./figures/filmworld_trial_structure.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+ </script></section><section data-markdown><script type="text/template">
+ 
+Three presentation methods being tested 
+
+<font size=4>
+
+Gray interval (4 seconds / video)
+
+</font>
+
+![Interval method](./figures/filmworld/example-frames-int.png)
+
+<font size=4>
+
+Continuous (6 seconds / video)
+
+</font>
+
+![Continuous method](./figures/filmworld/example-frames.png)
+
+<font size=4>
+
+Fading (6 seconds / video)
+
+</font>
+
+![Fading method](./figures/filmworld/example-frames-fade.png)
+ 
+
+ 
+ </script></section><section data-markdown><script type="text/template">
+ 
+ 
+ Why natural videos > gratings / pure tones:
+ 
+ <font size=5>
+ 
+- high dimensional
+- look at high dimensional neural activity 
+- more likely to evoke audio-visual activity
+- (ecologically relevant?)
+
+</font>
+ 
+  </script></section><section data-markdown><script type="text/template">
+  
+  
+</script></section></section><section ><section data-markdown><script type="text/template"> 
+
+## Recording in the PPC / Visual cortex 
+
+
+![TS003 retinotopy](./figures/filmworld/2p/TS003/TS003_retinotopy.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+
+![Mean image of the 12 planes](./figures/filmworld/2p/TS003/2019-11-28/exp-2/all-planes-plot.png)
+
+The first plane is always removed from analysis. This recording has about 5000 cells. 
+
+
+  
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+## Filmworld: example activity from one experiment
+
+![Example activity (colorbar should be deconvovled rate I think)](./figures/filmworld/2p/TS003/2019-11-28/exp-2/test-audio-video-pair-all-cell.png)
+
+ </script></section><section data-markdown><script type="text/template">
+ 
+ 
+### There is more activity when a movie is playing 
+
+<div id='left'>
+
+![Single neuron activity throughout experiment](./figures/filmworld/2p/TS003/2019-11-28/exp-2/single_neuron_trace_plane_number_7neuron_15.png)
+
+</div>
+
+
+
+<div id='right'>
+
+![Movie vs. no movie unity plot](./figures/filmworld/2p/TS003/2019-11-28/exp-2/movie_vs_no_movie_mean_activity.png)
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+ 
+### Mean activity of a neuron to each audio-video pair 
+
+![Example visual neuron mean activity](./figures/filmworld/2p/TS003/2019-11-28/exp-2/test-audio-video-pair-cell-74.png) <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+
+![Another example](./figures/filmworld/mean-activity-example-w-picture.png) <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+
+
+ </script></section><section data-markdown><script type="text/template">
+
+
+<iframe width="100%" height="600pt" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRWUTVbFb4g_bmR_KuU8ynFm67wpsi6xeG06qX_XRcQkF4CtlIfMBV5-iq2kLuCRqWAKGUq2Q9S3ktT/pubhtml?widget=true&amp;headers=false"></iframe>
+
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+## Does PPC/V1 contain information about video and/or audio stimulus?
+
+Population decoding approach
+
+![TS003 audio/video decoding SVM](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/simple-svm-cv-split-classfication-accuracy.png) <!-- .element  width="40%"; style="margin:auto;display:block" -->
+
+</script></section><section data-markdown><script type="text/template">
+
+<font size=5>
+  
+### Decoding using different classifiers 
+
+</font>
+
+
+<div id='left'>
+
+
+![TS003 video decoding diff classifiers](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/video-decoding-performance-diff-classifiers.png)
+
+
+</div>
+
+
+<div id='right'>
+
+![TS003 audio decoding diff classifiers](./figures/filmworld/2p/TS003/2019-11-28/exp-2/av-classification/audio-decoding-performance-diff-classifiers.png)
+
+</div>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<font size=5>
+
+### Another example 
+
+</font>
+
+<div id='left'> 
+
+![TS004 audio / video decoding](./figures/filmworld/decoding/TS004-2019-12-18-1-PC-SVM-classification-accuracy.svg)
+
+</div>
+
+
+<div id='right'>
+
+![TS004 audio / video decoding](./figures/filmworld/decoding/TS004-2019-12-18-1-PC-KNN-classification-accuracy.svg)
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+
+### Other ideas
+
+ - look at one-to-one decoding 
+ - tune regulurisation parameter
+ 
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+## Looking at audio / visual response in individual neurons 
+
+<font size=5>
+
+by looking at correlation across repeats
+
+</font>
+
+![TS004 interval video neuron](./figures/filmworld/correlation/old_figs/plane_7_cell_45audio_0_correlation.png)
+
+
+</script></section><section data-markdown><script type="text/template">
+
+![TS004 interval another example](./figures/filmworld/correlation/TS004_interval_plane_5_cell_497audio_0_correlation.png)
+
+
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+<font size=5>
+
+some neurons seem to care about auditory stimulus
+
+</font>
+
+![TS004 interval audio neuron](./figures/filmworld/correlation/old_figs/plane_1_cell_31video_0_correlation.png)
+
+</script></section><section data-markdown><script type="text/template">
+
+
+![TS004 audio neuron another example](./figures/filmworld/correlation/TS004_interval_plane_2_cell_33video_0_correlation.png)
+
+
+</script></section></section><section  data-markdown><script type="text/template">
+
+<font size=5>
+
+## Are neurons more correlated in video-only conditions than audio-only conditions?
+
+</font>
+
+![Correlation scenaruios](./figures/correlation_conceptual_figure_4_conditions.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+</script></section><section ><section data-markdown><script type="text/template">
+
+
+
+<font size=5>
+
+## Are neurons more correlated in video-only conditions than audio-only conditions?
+
+</font>
+
+
+![TS004 interval all neuron audio and video corr](./figures/filmworld/correlation/TS004_interval_experiment_all_neuron_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+</script></section><section data-markdown><script type="text/template">
+
+![TS004 continuous experiment](./figures/filmworld/correlation/TS004_continuous_experiment_all_neuron_correlation.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+
+</script></section></section><section  data-markdown><script type="text/template">
+
+
+<div class="stretch">
+<iframe frameborder="0" width="100%" height="100%" src="./figures/filmworld/correlation/TS004_interval_corr_interactive_plot_stretch_both.html"></iframe>
+</div>
+
+
+
+
+</script></section><section  data-markdown><script type="text/template">
+
+
+## Do neurons keep their video preference independent of audio presented?
+
+<div id='left'>
+
+![TS004 interval video-dependent neuron across all audio](./figures/filmworld/correlation/plane_5_cell_497_video_concantanted_activity_all_audio_y_axis_video.png) <!-- .element  width="100%"; style="margin:auto;display:block" --> <!-- .element: class="fragment" data-fragment-index="1" -->
+
+</div>
+
+<div id='right'>
+
+
+![TS004 interval video-dependent activity correlation matrix](./figures/filmworld/correlation/plane_5_cell_497_video_concantanted_activity_all_audio_pairwise_correlation.png) <!-- .element  width="100%"; style="margin:auto;display:block" --> <!-- .element: class="fragment" data-fragment-index="2" -->
+
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+
+## What features of the videos resulted in the neural response? 
+
+<div id='left'>
+
+Overall motion energy 
+
+<video controls width="700">
+	   <source src="./videos/filmworld/video-22-motion-energy.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-22-motion-energy.mp4" type="video/mp4" >
+</video>
+
+
+</div>
+
+<div id='right'>
+
+Spatio-temporal energy
+
+<video controls width="700">
+	   <source src="./videos/filmworld/video-27-SVD-zeroth-component.webm" type="video/webm">
+	    <source src="./videos/filmworld/video-27-SVD-zeroth-component.mp4" type="video/mp4" >
+</video>
+
+
+
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+
+
+## Taking account of behavioural response 
+
+
+<video controls width="400">
+	   <source src="./videos/vlc-record-2020-03-01-22h26m07s-2019-12-18_1_TS004_eye.webm" type="video/webm">
+	   <source src="./videos/vlc-record-2020-03-01-22h26m07s-2019-12-18_1_TS004_eye.mp4" type="video/mp4" >
+</video>
+
+
+
+
+</script></section><section ><section data-markdown><script type="text/template">
+
+## Future directions
+
+1. Improve recording of timing of stimulus onset (esp. auditory stimulus)
+2. Correlate neural activity with audio energy, video energy, and body movement
+3. Auditory cortex recording
+
+</script></section><section data-markdown><script type="text/template">
+
+# Thanks to 
+
+At CortexLab:
+
+ - Pip: ephys analysis, rigbox help and rich tea biscuits
+ - St&eacute;phane, Sam, Lauren, Michael: 2P 
+ - Charu: surgery and animals
+ - Bex: animals
+ - Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
+ - Jai and Miles: setting up video playback in rigbox-signals
+ 
+ At SWC:
+ 
+ - Athena : research proposal discussion
+ - Fred : auditory cortex surgery discussion
+ - Maxime : technical discussions
+
+</script></section><section data-markdown><script type="text/template">
+ 
+## Technical acknowledgments 
+
+ - running experiments: rigbox, signals
+ - 2P data processing: suite2p, facemap 
+ - Data organisation: xarray, dask, pandas
+ 
+![Suite2p](./figures/citations/suite2p_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
+ 
+![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
+
+
+![Bokeh logo](./figures/citations/bokeh_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+
+## Multispaceworld: neural basis of multisensory decision making
+
+![Race model intergation model](./figures/decision-models/late-integration-2.png)
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png)
+
+</script></section><section data-markdown><script type="text/template">
+
+<div id='left'>
+
+Race model
+
+![Race model](./figures/decision-models/race_model.png)
+
+</div>
+
+<div id='right'>
+
+Drift model
+
+![Drift model](./figures/decision-models/drift_model.png)
+
+
+![Coherent vs. conflict reaction time](./figures/pip_data_coherent_conflict_rt.png) <!-- .element  width="50%"; style="margin:auto;display:block" --> 
+
+
+
+</div>
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+## MOs contains information about choice 
+
+
+and as demonstrated by optogenetic inactivation, is necessary for multisensory decision making
+
+
+<div id='left'>
+
+![Movement aligned movement decoding bar chart](./figures/multispaceworld/decode_left_right_100ms_before_movement_brain_region_accuracy_bar_chart.svg)
+
+</div>
+
+<div id='right'>
+
+![Stimulus aligned movement decoding bar chart ](./figures/multispaceworld/decode_left_right_100ms_after_stimulus_brain_region_accuracy_bar_chart.svg)
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+
+<div id='left'>
+
+Aligned to stimulus
+
+![Stimulus aligned movement decoding](./figures/multispaceworld/decode_response_lr_stim_aligned_all_subject_exp_averaged_rel_accuracy_.svg)
+
+</div> 
+
+<div id='right'>
+
+Aligned to movement
+
+![Movement aligned movement decoding](./figures/multispaceworld/all_subject_exp_averaged_rel_accuracy_decode_lr_aligned_to_movement.svg)
+
+</div>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<div id='left'>
+
+![Coherent vs. conflict condition movement decoding](./figures/multispaceworld/decode_left_right_100ms_before_movement_coherent_conflict_accuracy_bar_chart.svg)
+
+</div>
+
+<div id='right'>
+
+![Auditory vs. visual trials movement decoding](./figures/multispaceworld/decode_left_right_100ms_before_movement_aud_vid_only_accuracy_paired_scatter_chart.svg)
+
+</div>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<font size=5>
+
+Choice information comes early
+
+</font>
+
+<img src="./figures/multispaceworld/active-psth/early_movement_no_passive_response_s3_e21_b2_sig_idx_10_combined_exp_cell_idx_95.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<font size=5>
+
+Some MOs respond in both active and passive condition
+
+</font>
+
+<img src="./figures/multispaceworld/active-psth/early_movement_decoding_subject_2_brain_area_3_exp_15_sig_idx_2_combined_exp_cell_idx_23.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+
+<font size=5>
+
+Some are just related to movement
+
+</font>
+
+
+<img src="./figures/multispaceworld/active-psth/after_movement_left_right_s3_e21_b2_sig_idx_16_combined_exp_cell_idx_82.png" alt="Active and passive responsive neuron" width="700" height="600">
+
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<iframe width="100%" height="600pt" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTk1w56bgGRBI4aoc4njVzvys9-WC60yz7livo-JODzwurYubD0fk5pxAZ6lnBqduOSZeu2rrOMwB4P/pubhtml?widget=true&amp;headers=false"></iframe>
+
+
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+
+
+
+## MOs may not be purely motor 
+
+Passive direction-dependent auditory response in MOs 
+
+<div id='left'>
+
+![Stimulus time aligned auditory response](./figures/multispaceworld/passiveReponse/aud_left_right_subject_4_exp_32_cell_48.png) <!-- .element  width="100%"; style="margin:auto;display:block" -->
+
+</div>
+
+
+<div id='right'>
+
+![Stimulus time aligned auditory response scatter ](./figures/multispaceworld/passiveReponse/aud_left_right_subject_4_exp_32_cell_48_scatter.png) <!-- .element  width="100%"; style="margin:auto;display:block" -->
+
+</div>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+<font size=5>
+
+### Decoding of auditory direction in passive condition is poor using all neurons
+
+</font>
+
+<font size=5>
+
+Decoding audio left/right in the same experiment as the example cell shown before 
+
+</font>
+
+![Audio left/right decoding](./figures/multispaceworld/passiveReponse/subject_4_exp_32__left_right_windowed_classification_svm_l1_C_untuned_w_hline_w_error_shade_brain_regions_combined.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
+
+</script></section><section data-markdown><script type="text/template">
+
+
+### MOs responds to audio onset in passive conditions 
+
+<div id='left'>
+
+![Audio on/off activated](./figures/multispaceworld/passiveReponse/aud_on_off_subject_3_exp_21_cell_89_scatter.png)
+
+</div>
+
+<div id='right'>
+
+![Audio on/off suppressed](./figures/multispaceworld/passiveReponse/aud_on_off_subject_4_exp_34_cell_34_scatter.png)
+
+
+</div>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+
+### Time of auditory and visual information 
+
+<font size=5>
+
+Observation: 
+
+ - auditory response is faster than visual response 
+ - auditory response show an early peak and late peak in activity
+
+Hypothesis: 
+
+ - early peak in auditory response may signal auditory presense 
+ - whereas late auditory activity may signal auditory direction 
+ - this may explain auditory dominance effect observed in go/no-go task 
+ 
+ 
+ </font>
+ 
+ </script></section><section data-markdown><script type="text/template">
+ 
+ ![Example neuoron that is close to illustrating the point](./figures/multispaceworld/peri_stimulus_audio_left_right_subject_6_experiment_54_cell_70w_grid_unimodal_only.svg)
+  
+
+</script></section><section data-markdown><script type="text/template">
+
+
+![Mean of peak time ](./figures/multispaceworld/timeOfInfo/all_exp_sig_neuron_mean_time_of_peak_neuron_type_grouped_threshold_0p05.svg)
+
+ 
+ </script></section></section><section  data-markdown><script type="text/template">
+ 
+
+# Future directions 
+
+<font size=7>
+ 
+1. More analysis of time course of audio and visual information 
+2. Relate auditory/visual bias in behaviour with neural activity
+3. Summarise main neuron types in MOs
+ 
+ 
+</font>
+ 
+
+ </script></section><section ><section data-markdown><script type="text/template">
+ 
+# Thanks to 
+
+
+<div id='left'>
+
+At CortexLab:
+
+<font size=4>
+
+
+- Pip: ephys analysis, rigbox help and rich tea biscuits
+- St&eacute;phane, Sam, Lauren, Michael: 2P 
+- Charu: surgery and animals
+- Bex: animals
+- Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
+- Jai and Miles: setting up video playback in rigbox-signals
+
+
+</font>
+
+</div>
+
+
+<div id='right'>
+ 
+ At SWC:
+ 
+ <font size=4>
+ 
+ - Athena : research proposal discussion
+ - Fred : auditory cortex surgery discussion
+ - Maxime : technical discussions
+ 
+</font>
+
+</div>
+
+
+ </script></section><section data-markdown><script type="text/template">
+ 
+## Technical acknowledgments 
+
+<div id='left'>
+
+ - running experiments: rigbox, signals
+ - 2P data processing: suite2p, facemap 
+ - Data organisation: xarray, dask, pandas
+ 
+</div>
+
+<div id='right'>
+ 
+![Suite2p](./figures/citations/suite2p_logo.png) <!-- .element  width="30%"; height=30%; style="margin:auto;display:block" --> ![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="50%"; height="50%"; style="margin:auto;display:block" --> ![Bokeh logo](./figures/citations/bokeh_logo.png) <!-- .element  width="30%"; height="30%" style="margin:auto;display:block" -->
+
+</div>
+
+ </script></section></section><section ><section data-markdown><script type="text/template">
+
+
+## Other ideas
+
+</script></section><section data-markdown><script type="text/template">
+
+## Filmworld for addressing the how question of multisensory integration 
+
+ - present set of stimulus multiple times 
+ - some of them temporally coherent and 'true' (occurs in nature)
+ - some of them temporally incoherent and 'true' (animal and some background sound) 
+ - some of them temporally coherent but false (artificial sounds, dubbing) 
+ - some of them temporally inchoerent and false (random video and random audio)
+
+
+
+
+
+
+
+ 
 
 
 
@@ -515,10 +1145,22 @@ p { text-align: left; }
 #myfigure{
 	text-align: center;
 }
+
+
+.fragment.current-visible.visible:not(.current-fragment) {
+    display: none;
+    height:0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
+
+
+
 </style>
 
 
-</script></section></div>
+</script></section></section></div>
     </div>
 
     <script src="./js/reveal.js"></script>
