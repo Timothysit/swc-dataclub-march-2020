@@ -163,7 +163,7 @@ High-dimensional audio-visual stimuli <!-- .element: class="fragment" data-fragm
 
 **2. What is the relationship between unimodal and multimodal response?** <!-- .element: class="fragment" data-fragment-index="2" -->
 
-**3. What is the circuit architecture of audio-visual decision making?** <!-- .element: class="fragment" data-fragment-index="4" -->
+**3. What is the circuit architecture of audio-visual decision making?** <!-- .element: class="fragment" data-fragment-index="5" -->
 
 
 
@@ -187,14 +187,18 @@ $$f(A + V) = f(A) + f(V)$$  <!-- .element: class="fragment current-visible" data
 
 $$f(A + V) = f(A) + f(V) + f(A, V)$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
-Race model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
-
-![Race model intergation model](./figures/decision-models/late-integration-2.png) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+![Multimodal representation models](./figures/intro-to-multimodal/representation-models.svg) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
 
 
-Drift model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
 
-![Drift model integraation model](./figures/decision-models/late-integration-1.png) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+Race model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+
+![Race model intergation model](./figures/decision-models/late-integration-2.png) <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+
+
+Drift model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png) <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
 
 Early integration model of multimoda decision making <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
 
@@ -205,11 +209,6 @@ Early integration model of multimoda decision making <!-- .element: class="fragm
 </div> 
 
 
-
-</script></section><section data-markdown><script type="text/template">
-
-
-![Mulitmodal representation](./figures/intro-to-multimodal/multimodal_representation_models.svg)
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -434,7 +433,19 @@ Phase 3: Decision making with learned audio-visual associations
 
 </script></section><section data-markdown><script type="text/template"> 
 
-<img src="./figures/filmworld_all_videos.png" alt="Filmworld all videos" width="700" height="600">
+<div id='left'>
+
+<img src="./figures/filmworld_all_videos.png" alt="Filmworld all videos" width="500" height="400">
+
+</div>
+
+
+<div id='right'>
+
+![Filmworld setup](./figures/filmworld/filmworld-setup.svg)
+
+</div>
+
 
 
 
@@ -693,7 +704,7 @@ some neurons seem to care about auditory stimulus
 
 
 
-</script></section><section  data-markdown><script type="text/template">
+</script></section><section ><section data-markdown><script type="text/template">
 
 
 ## Do neurons keep their video preference independent of audio presented?
@@ -711,7 +722,36 @@ some neurons seem to care about auditory stimulus
 
 </div>
 
-</script></section><section  data-markdown><script type="text/template">
+
+</script></section><section data-markdown><script type="text/template">
+
+
+![Reliability](./figures/filmworld/correlation/reliability/TS004_interval_experiment_all_neuron_corr_and_reliability.svg) <!-- .element  width="100%"; style="margin:auto;display:block" --> 
+
+</script></section><section data-markdown><script type="text/template">
+
+
+<div id='left'>
+
+Reliable visual neuron 
+
+![Reliable visual neuron](./figures/filmworld/correlation/reliability/video_reliability_plane_5_cell_95.svg) <!-- .element  width="100%"; style="margin:auto;display:block" --> 
+
+</div>
+
+
+<div id='right'>
+
+'Reliable' audio neuron 
+
+![Reliable audio neuro](./figures/filmworld/correlation/reliability/audio_reliability_plane_11_cell_245.svg) <!-- .element  width="100%"; style="margin:auto;display:block" --> 
+
+
+
+</div>
+
+
+</script></section></section><section  data-markdown><script type="text/template">
 
 ## What features of the videos resulted in the neural response? 
 
@@ -746,11 +786,22 @@ Spatio-temporal energy
 ## Taking account of behavioural response 
 
 
+<div id='left'>
+
 <video controls width="400">
 	   <source src="./videos/vlc-record-2020-03-01-22h26m07s-2019-12-18_1_TS004_eye.webm" type="video/webm">
 	   <source src="./videos/vlc-record-2020-03-01-22h26m07s-2019-12-18_1_TS004_eye.mp4" type="video/mp4" >
 </video>
 
+</div>
+
+
+
+<div id='right'>
+
+![Motion energy](./figures/filmworld/motion/TS004_interval_ROI_motion_energy.png)
+
+</div>
 
 
 
@@ -766,36 +817,51 @@ Spatio-temporal energy
 
 # Thanks to 
 
+<div id='left'>
+
 At CortexLab:
 
- - Pip: ephys analysis, rigbox help and rich tea biscuits
- - St&eacute;phane, Sam, Lauren, Michael: 2P 
- - Charu: surgery and animals
- - Bex: animals
- - Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
- - Jai and Miles: setting up video playback in rigbox-signals
+- Pip: ephys analysis, rigbox help and rich tea biscuits
+- St&eacute;phane, Sam, Lauren, Michael: 2P 
+- Charu and Bex: surgery and animals
+- Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
+- Jai and Miles: setting up video playback in rigbox-signals
+- Kenneth and Matteo: supervision and advice
  
- At SWC:
+ </div>
  
- - Athena : research proposal discussion
- - Fred : auditory cortex surgery discussion
- - Maxime : technical discussions
+ <div id='right'>
+ 
+At SWC:
+ 
+- Athena : research proposal discussion
+- Fred : auditory cortex surgery discussion
+- Maxime : technical discussions
+ 
+ </div>
 
 </script></section><section data-markdown><script type="text/template">
  
 ## Technical acknowledgments 
 
+<div id='left'>
+
  - running experiments: rigbox, signals
  - 2P data processing: suite2p, facemap 
  - Data organisation: xarray, dask, pandas
  
+</div>
+
+<div id='right'>
+ 
 ![Suite2p](./figures/citations/suite2p_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
  
-![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
+![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="40%"; style="margin:auto;display:block" -->
 
 
 ![Bokeh logo](./figures/citations/bokeh_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
 
+</div>
 
 </script></section></section><section ><section data-markdown><script type="text/template">
 
@@ -1030,9 +1096,9 @@ Hypothesis:
 
 <font size=7>
  
-1. More analysis of time course of audio and visual information 
-2. Relate auditory/visual bias in behaviour with neural activity
-3. Summarise main neuron types in MOs
+1. Relate stimulus with behaviour and with behaviour with neural activity
+2. More salient / ecologically releveant audio-visual stimuli (eg. high frequency vocal emissions)
+3. Alter statistics of audio-visual stimuli
  
  
 </font>
