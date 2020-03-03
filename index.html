@@ -141,11 +141,27 @@ High-dimensional audio-visual stimuli <!-- .element: class="fragment" data-fragm
 
 <img src="./figures/filmworld_all_combinations_manual_cropped.png" alt="Filmworld combinations" width="700" height="200"> <!-- .element: class="fragment" data-fragment-index="1" -->
 
-<font size=5>
+<font size=4> <!-- .element: class="fragment" data-fragment-index="1" -->
 
-*Stringer and Pachitariu 2019: High-dimensional geometry of population response in visual cortex* <!-- .element: class="fragment" data-fragment-index="1" -->
+- No previous study on high-dimensional audio-visual integration in mice. <!-- .element: class="fragment" data-fragment-index="1" -->
+- Previous report of low-dimensional modulation of visual response by auditory stimuli may be constrained by low stimulus space dimensionality <!-- .element: class="fragment" data-fragment-index="2" -->
 
 </font>
+ 
+ <font size=5> <!-- .element: class="fragment" data-fragment-index="1" -->
+ 
+*Stringer and Pachitariu 2019: High-dimensional geometry of population response in visual cortex* <!-- .element: class="fragment" data-fragment-index="1" --> 
+
+</font>
+
+ <font size=5> <!-- .element: class="fragment" data-fragment-index="2" -->
+
+*Gao 2017: A theory of multineuronal dimensionality, dynamics and measurement* <!-- .element: class="fragment" data-fragment-index="2" -->
+ 
+ </font>
+
+
+
 
 
 </div>
@@ -161,11 +177,22 @@ High-dimensional audio-visual stimuli <!-- .element: class="fragment" data-fragm
 
 **1. Where does multimodal integration occur?** <!-- .element: class="fragment" data-fragment-index="1" -->
 
-**2. What is the relationship between unimodal and multimodal response?** <!-- .element: class="fragment" data-fragment-index="2" -->
+ **taking account of movement responses to stimuli** <!-- .element: class="fragment" data-fragment-index="1" --> <!--.element: style="color:red"-->
 
-**3. What is the circuit architecture of audio-visual decision making?** <!-- .element: class="fragment" data-fragment-index="5" -->
+**2. What is the relationship between unimodal and multimodal response?** <!-- .element: class="fragment" data-fragment-index="3" --> 
 
 
+<font size=4> <!-- .element: class="fragment" data-fragment-index="3" -->
+
+- Single neuron question: how is tuning for one modality influenced by another modality? <!-- .element: class="fragment" data-fragment-index="3" --> 
+- Population level question: In multimodal regions, do distinct neurons respond to audio and visual stimulus, or do neurons have mixed selectivity? Is this selectivity dependent on certain audio-visual statistics? (eg. coherent motion and sound energy) <!-- .element: class="fragment" data-fragment-index="3" -->
+ 
+</font>
+
+**3. What is the circuit architecture of audio-visual decision making?** <!-- .element: class="fragment" data-fragment-index="7" -->
+
+
+[comment]: <> (May be best to not mention about the decision making task if I am not going to discsus it further; or just mention that it is in the pipeline.)
 
 
 </div> 
@@ -174,35 +201,42 @@ High-dimensional audio-visual stimuli <!-- .element: class="fragment" data-fragm
 
 <div id='right'>
 
-![Where to find multimodal response](./figures/where_to_find_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+![Face motion explains neural activity](./figures/citations/stringer-facemap-predict-neural.png) <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+*Stringer and Pachitariu 2019: Spontaneous behaviors drive multidimensional, brainwide activity* <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
 
 
-![Linear multimodal response](./figures/linear_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
-
-$$f(A + V) = f(A) + f(V)$$  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+![Where to find multimodal response](./figures/where_to_find_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
 
 
+![Linear multimodal response](./figures/linear_multimodal_response.png)  <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
-![Nonlinear multimodal response](./figures/nonlinear_multimodal_response.png) <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
-
-$$f(A + V) = f(A) + f(V) + f(A, V)$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
-
-![Multimodal representation models](./figures/intro-to-multimodal/representation-models.svg) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+$$f(A + V) = f(A) + f(V)$$  <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
 
 
-Race model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+![Nonlinear multimodal response](./figures/nonlinear_multimodal_response.png) <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
 
-![Race model intergation model](./figures/decision-models/late-integration-2.png) <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+$$f(A + V) = f(A) + f(V) + f(A, V)$$ <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+![Audiovisual subspace](./figures/intro-to-multimodal/multimodal-mixed-selectivity.svg) <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
 
 
-Drift model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
+![Multimodal representation models](./figures/intro-to-multimodal/representation-models.svg) <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
 
-![Drift model integraation model](./figures/decision-models/late-integration-1.png) <!-- .element: class="fragment current-visible" data-fragment-index="5" -->
 
-Early integration model of multimoda decision making <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
+Race model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="7" -->
 
-![Early integration model](./figures/decision-models/early-integration.png) <!-- .element: class="fragment current-visible" data-fragment-index="6" -->
+![Race model intergation model](./figures/decision-models/late-integration-2.png) <!-- .element: class="fragment current-visible" data-fragment-index="7" -->
+
+
+Drift model of mulitmodal decision making <!-- .element: class="fragment current-visible" data-fragment-index="7" -->
+
+![Drift model integraation model](./figures/decision-models/late-integration-1.png) <!-- .element: class="fragment current-visible" data-fragment-index="7" -->
+
+Early integration model of multimoda decision making <!-- .element: class="fragment current-visible" data-fragment-index="8" -->
+
+![Early integration model](./figures/decision-models/early-integration.png) <!-- .element: class="fragment current-visible" data-fragment-index="8" -->
 
 
 
@@ -755,6 +789,11 @@ some neurons seem to care about auditory stimulus
 
 </script></section><section data-markdown><script type="text/template">
 
+<font size=5>
+
+### In visual cortex / PPC, visual activity is weakly modulated by auditory stimuli, but auditory activity is strongly modulated by visual stimuli
+
+</font>
 
 ![Reliability](./figures/filmworld/correlation/reliability/TS004_interval_experiment_all_neuron_corr_and_reliability.svg) <!-- .element  width="100%"; style="margin:auto;display:block" --> 
 
@@ -839,9 +878,27 @@ Spatio-temporal energy
 
 ## Future directions
 
-1. Improve recording of timing of stimulus onset (esp. auditory stimulus)
-2. Correlate neural activity with audio energy, video energy, and body movement
-3. Auditory cortex recording
+<div id='left'>
+
+<font size=5>
+ 
+1. Relate stimulus with behaviour and with behaviour with neural activity
+2. More salient / ecologically releveant audio-visual stimuli (eg. high frequency vocal emissions)
+3. Alter statistics of audio-visual stimuli
+ 
+ 
+</font>
+
+</div>
+
+
+<div id='right'>
+
+![Audio affects movement](./figures/filmworld/motion/audio-affect-movement.svg)
+
+
+</div>
+
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -849,7 +906,9 @@ Spatio-temporal energy
 
 <div id='left'>
 
-At CortexLab:
+<font size=5>
+
+ At CortexLab:
 
 - Pip: ephys analysis, rigbox help and rich tea biscuits
 - St&eacute;phane, Sam, Lauren, Michael: 2P 
@@ -857,16 +916,23 @@ At CortexLab:
 - Anwar, Kush, Sam, C&eacute;lian: analysis discussions 
 - Jai and Miles: setting up video playback in rigbox-signals
 - Kenneth and Matteo: supervision and advice
+
+</font>
  
  </div>
  
  <div id='right'>
  
-At SWC:
+ <font size=5>
+ 
+At SWC/Gatsby:
  
 - Athena : research proposal discussion
 - Fred : auditory cortex surgery discussion
 - Maxime : technical discussions
+- Billy, Lucas, Liang: feedback on earlier version of the talk
+
+</font>
  
  </div>
 
@@ -878,15 +944,16 @@ At SWC:
 
  - running experiments: rigbox, signals
  - 2P data processing: suite2p, facemap 
- - Data organisation: xarray, dask, pandas
+ - Data organisation: xarray, dask
+ - Data visualisation: bokeh
  
 </div>
 
 <div id='right'>
  
-![Suite2p](./figures/citations/suite2p_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
+![Suite2p](./figures/citations/suite2p_logo.png) <!-- .element  width="20%"; style="margin:auto;display:block" -->
  
-![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="40%"; style="margin:auto;display:block" -->
+![Xarray logo](./figures/citations/xarray_logo.png) <!-- .element  width="60%"; style="margin:auto;display:block" -->
 
 
 ![Bokeh logo](./figures/citations/bokeh_logo.png) <!-- .element  width="30%"; style="margin:auto;display:block" -->
